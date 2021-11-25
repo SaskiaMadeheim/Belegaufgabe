@@ -111,7 +111,7 @@ public class LaunchPage extends JFrame{
 		
 		//rechtes Label1
 		JLabel rLabel1 = new JLabel();
-		rLabel1.setText("Überblick");
+		rLabel1.setText("\u00dberblick");
 		rLabel1.setForeground(new Color(255, 255, 255));
 		rLabel1.setFont(new Font("Arial", Font.BOLD, 25));
 		rLabel1.setBounds(60, 10, 200, 100);
