@@ -17,7 +17,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-@SuppressWarnings("serial")
 public class LaunchPage extends JFrame{
 	
 	//Instanzvariablen
@@ -94,8 +93,7 @@ public class LaunchPage extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == finanzen)
 				{
-					//fenster.dispose();
-					System.out.println("Symsalabin");
+					fenster.dispose();
 					FinanzPage fs = new FinanzPage();
 				}
 			}
