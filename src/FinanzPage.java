@@ -13,11 +13,13 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
 @SuppressWarnings("serial")
 public class FinanzPage extends JFrame{
+	
 	private ArrayList<Finanzbewegung> kontobw = new ArrayList<Finanzbewegung>();
 	
 	public FinanzPage()
@@ -126,12 +128,38 @@ public class FinanzPage extends JFrame{
 			}
 		});
 		
-		
+		String[][] daten = new String[3][10];
+		for(int i=0; i<10; i++)
+		{
+			for(int j=kontobw.size(); j>(kontobw.size()-10); j--)
+			{
+				Finanzbewegung fd = kontobw.get(j);
+				daten[1][i] = fd.getName();
+				Integer dat = fd.getDatum();
+				daten[2][i] = dat.toString();
+				Double bet = fd.getBetrag();
+				daten[3][i] = bet.toString();
+			}
+			
+			
+		}
+		//String daten[][]={ {"101","Amit","670000"}, {"102","Jai","780000"}, {"101","Sachin","700000"}};    
+		String ueberschrift[]={"Buchungsdatum","Buchungstext","Betrag"};         
+		JTable jt=new JTable(daten,ueberschrift); 
+		jt.setFocusable(false);
+		jt.setCellSelectionEnabled(false);
+		jt.setEnabled(false);
+		jt.setBounds(30,40,200,300);   
+		jt.setFont(new Font("Arial", Font.PLAIN, 18));
+		jt.getTableHeader().setFont(new Font("Arial", Font.PLAIN, 20));
 		
 		JPanel linkeSeite = new JPanel();
 		linkeSeite.setBackground(new Color(255,255,255));
 		linkeSeite.setPreferredSize(new Dimension(640, 720));
 		//linkeSeite.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 3, new Color(47,85,178)));
+		linkeSeite.setLayout(new BorderLayout(5, 5));
+		linkeSeite.add(jt.getTableHeader(), BorderLayout.PAGE_START);
+		linkeSeite.add(jt, BorderLayout.CENTER);
 		
 		JPanel rechteSeite = new JPanel();
 		rechteSeite.setBackground(new Color(255,255,255));
