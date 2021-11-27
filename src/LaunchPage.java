@@ -92,8 +92,12 @@ public class LaunchPage extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				fenster.dispose();
-				System.out.println("finanzen");
+				if(e.getSource() == finanzen)
+				{
+					//fenster.dispose();
+					System.out.println("Symsalabin");
+					FinanzPage fs = new FinanzPage();
+				}
 			}
 		});
 		
