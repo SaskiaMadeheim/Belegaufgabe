@@ -49,7 +49,7 @@ public class Kassenbuch extends Finanzdaten
 		XSSFSheet tab = workbook.createSheet("Kassenbuch");
 		// Schreiben der ersten Zeile
 		Row zeile1 = tab.createRow(0);
-		createColoredCell(workbook, zeile1, 0, "Kassenbuch von: Sportverein Tuttlingen", HorizontalAlignment.CENTER, IndexedColors.PALE_BLUE.getIndex());
+		createColoredCell(workbook, zeile1, 0, "Kassenbuch von: Sportverein Tuttlingen", HorizontalAlignment.CENTER, IndexedColors.LIGHT_TURQUOISE.getIndex());
 		tab.addMergedRegion((new CellRangeAddress(0, 0, 0, 9)));
 		// Schreiben der zweiten Zeile
 		Row zeile2 = tab.createRow(1);
@@ -122,16 +122,8 @@ public class Kassenbuch extends Finanzdaten
 				tab.getRow(zaehlerA+7).createCell(8).setCellValue("Schwimmen");
 				tab.getRow(zaehlerA+7).createCell(9).setCellValue(f.getBetrag()*(-1));
 			}
-				
-			
 		}
-		// Dicke Striche einfuegen
-		borderStyleLeft(zeile7.getCell(5).getCellStyle());
-		borderStyleLeft(zeile8.getCell(5).getCellStyle());
-		for(int i = 0; i < 10; i++)
-		{
-			borderStyleBottom(zeile7.getCell(i).getCellStyle());
-		}
+		
 		// Duenne Striche einfuegen
 		for(int i = 0; i < zaehleEin(); i++)
 		{
@@ -142,7 +134,7 @@ public class Kassenbuch extends Finanzdaten
 				tab.getRow(8+i).getCell(j).setCellStyle(cellStyle);
 			}
 		}
-		
+				
 		for(int i = 0; i < zaehleAus(); i++)
 		{
 			for(int j = 5; j < 10; j++)
@@ -151,7 +143,22 @@ public class Kassenbuch extends Finanzdaten
 				borderStyleAll(cellStyle);
 				tab.getRow(8+i).getCell(j).setCellStyle(cellStyle);
 			}
+		}	
+		
+		// Dicke Striche einfuegen
+		for (int i = 8; i<(8+n); i++)
+		{
+			CellStyle cellStyle = workbook.createCellStyle();
+			borderStyleLeft(cellStyle);
+			tab.getRow(i).getCell(5).setCellStyle(cellStyle);
 		}
+		borderStyleLeft(zeile7.getCell(5).getCellStyle());
+		borderStyleLeft(zeile8.getCell(5).getCellStyle());
+		for(int i = 0; i < 10; i++)
+		{
+			borderStyleBottom(zeile7.getCell(i).getCellStyle());
+		}
+		
 		// Zellenbreite automatisch anpassen
 		for (int i = 0; i < 10; i++)
 		{
@@ -200,8 +207,14 @@ public class Kassenbuch extends Finanzdaten
 			
 	public void borderStyleLeft(CellStyle style)
 	{
+		style.setBorderBottom(BorderStyle.THIN);
+		style.setBottomBorderColor(IndexedColors.BLACK.getIndex());
+		style.setBorderRight(BorderStyle.THIN);
+		style.setRightBorderColor(IndexedColors.BLACK.getIndex());
 		style.setBorderLeft(BorderStyle.THICK);
 		style.setLeftBorderColor(IndexedColors.BLACK.getIndex());
+		style.setBorderTop(BorderStyle.THIN);
+		style.setTopBorderColor(IndexedColors.BLACK.getIndex());
 	}
 	
 	public void borderStyleBottom(CellStyle style)
