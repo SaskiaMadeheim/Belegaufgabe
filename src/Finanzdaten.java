@@ -24,11 +24,21 @@ public class Finanzdaten
 		kontobew = new ArrayList<Finanzbewegung>();
 	}
 	
-	public Finanzdaten(double haben, double jaehrlEinnahmen, double jaehrlAusgaben, ArrayList<Finanzbewegung> kontobew)
+	public Finanzdaten(double anfangswert, ArrayList<Finanzbewegung> kontobew)
 	{
-		this.haben = haben;
-		this.jaehrlEinnahmen = jaehrlEinnahmen;
-		this.jaehrlAusgaben = jaehrlAusgaben;
+		for(Finanzbewegung f: kontobew)
+		{
+			double betrag = f.getBetrag();
+			if (f.getPositiv())
+			{
+				jaehrlEinnahmen = jaehrlEinnahmen + betrag;
+			}
+			else
+			{
+				jaehrlAusgaben = jaehrlAusgaben + betrag*(-1);
+			}
+		}
+		haben = anfangswert + jaehrlEinnahmen - jaehrlAusgaben;
 		this.kontobew = kontobew;
 	}
 	
@@ -46,6 +56,11 @@ public class Finanzdaten
 	public double getJaehrlAusgaben()
 	{
 		return jaehrlAusgaben;
+	}
+	
+	public ArrayList<Finanzbewegung> getKontobew()
+	{
+		return kontobew;
 	}
 	
 	//Kontobewegung hinzufuegen
