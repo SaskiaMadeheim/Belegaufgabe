@@ -49,7 +49,7 @@ public class Kassenbuch extends Finanzdaten
 		XSSFSheet tab = workbook.createSheet("Kassenbuch");
 		// Schreiben der ersten Zeile
 		Row zeile1 = tab.createRow(0);
-		createCell(workbook, zeile1, 0, "Kassenbuch von: Sportverein Tuttlingen", HorizontalAlignment.CENTER);
+		createColoredCell(workbook, zeile1, 0, "Kassenbuch von: Sportverein Tuttlingen", HorizontalAlignment.CENTER, IndexedColors.PALE_BLUE.getIndex());
 		tab.addMergedRegion((new CellRangeAddress(0, 0, 0, 9)));
 		// Schreiben der zweiten Zeile
 		Row zeile2 = tab.createRow(1);
@@ -96,14 +96,14 @@ public class Kassenbuch extends Finanzdaten
 		}
 		// Schreiben der Einnahmen und Ausgaben
 		int n = berechneZeilen();
-		for(int i = 0; i <= n; i++)
+		for(int i = 0; i < n; i++)
 		{
 			Row zeile = tab.createRow(8+i);
 		}
+		int zaehlerE = 0;
+		int zaehlerA = 0;
 		for(Finanzbewegung f: daten.getKontobew())
 		{
-			int zaehlerE = 0;
-			int zaehlerA = 0;
 			if(f.getPositiv())
 			{
 				zaehlerE++;
@@ -131,7 +131,27 @@ public class Kassenbuch extends Finanzdaten
 		for(int i = 0; i < 10; i++)
 		{
 			borderStyleBottom(zeile7.getCell(i).getCellStyle());
-		}		
+		}
+		// Duenne Striche einfuegen
+		for(int i = 0; i < zaehleEin(); i++)
+		{
+			for(int j = 0; j < 5; j++)
+			{
+				CellStyle cellStyle = workbook.createCellStyle();
+				borderStyleAll(cellStyle);
+				tab.getRow(8+i).getCell(j).setCellStyle(cellStyle);
+			}
+		}
+		
+		for(int i = 0; i < zaehleAus(); i++)
+		{
+			for(int j = 5; j < 10; j++)
+			{
+				CellStyle cellStyle = workbook.createCellStyle();
+				borderStyleAll(cellStyle);
+				tab.getRow(8+i).getCell(j).setCellStyle(cellStyle);
+			}
+		}
 		// Zellenbreite automatisch anpassen
 		for (int i = 0; i < 10; i++)
 		{
@@ -234,9 +254,11 @@ public class Kassenbuch extends Finanzdaten
 	{
 		Finanzbewegung test1 = new Finanzbewegung("Einnahme", 9052020, 500);
 		Finanzbewegung test2 = new Finanzbewegung("Ausgabe", 10052020, -200);
+		Finanzbewegung test3 = new Finanzbewegung("Ausgabe", 11052020, -100);
 		ArrayList<Finanzbewegung> test = new ArrayList<Finanzbewegung>();
 		test.add(test1);
 		test.add(test2);
+		test.add(test3);
 		Finanzdaten f = new Finanzdaten (0, test);
 		Kassenbuch k = new Kassenbuch (f);
 		k.schreibeExcel();
