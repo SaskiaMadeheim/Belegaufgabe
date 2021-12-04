@@ -3,10 +3,15 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -128,43 +133,61 @@ public class FinanzPage extends JFrame{
 			}
 		});
 		
-		String[][] daten = new String[3][10];
-		for(int i=0; i<10; i++)
-		{
-			for(int j=kontobw.size(); j>(kontobw.size()-10); j--)
-			{
-				Finanzbewegung fd = kontobw.get(j);
-				daten[1][i] = fd.getName();
-				Integer dat = fd.getDatum();
-				daten[2][i] = dat.toString();
-				Double bet = fd.getBetrag();
-				daten[3][i] = bet.toString();
-			}
-			
-			
+		JButton exportiereInExcel = new JButton("Exportiere Daten in Excel");
+		exportiereInExcel.setFocusable(false);
+		exportiereInExcel.setPreferredSize(new Dimension(250,50));;
+		exportiereInExcel.setBackground(new Color(255,255,255));
+		exportiereInExcel.setBorder(buttonBoder);
+		exportiereInExcel.setForeground(new Color(47,85,178));
+		exportiereInExcel.setFont(new Font("Arial", Font.PLAIN, 20));
+		
+		ImageIcon statistik = new ImageIcon("Einnahmen_Ausgaben.jpg");
+		JLabel stat = new JLabel();
+		stat.setIcon(statistik);
+		stat.setPreferredSize(new Dimension(640,420));
+		stat.setBackground(new Color(255,255,255));
+		
+		JLabel gesamtzahl = new JLabel("Gesamtzahl der Buchungen: 23");
+		gesamtzahl.setPreferredSize(new Dimension(300,50));
+		gesamtzahl.setBackground(Color.white);
+		gesamtzahl.setForeground(new Color(47,85,178));
+		gesamtzahl.setFont(new Font("Arial", Font.PLAIN, 20));
+		
+		
+		BufferedImage img = null;
+		try {
+			img = ImageIO.read(new File("logo.png"));
 		}
-		//String daten[][]={ {"101","Amit","670000"}, {"102","Jai","780000"}, {"101","Sachin","700000"}};    
-		String ueberschrift[]={"Buchungsdatum","Buchungstext","Betrag"};         
-		JTable jt=new JTable(daten,ueberschrift); 
-		jt.setFocusable(false);
-		jt.setCellSelectionEnabled(false);
-		jt.setEnabled(false);
-		jt.setBounds(30,40,200,300);   
-		jt.setFont(new Font("Arial", Font.PLAIN, 18));
-		jt.getTableHeader().setFont(new Font("Arial", Font.PLAIN, 20));
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		Image dimg = img.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+		ImageIcon logo = new ImageIcon(dimg);
+		
+		JLabel logoPanel = new JLabel();
+		logoPanel.setIcon(logo);
+		logoPanel.setBounds(5, 5, 235, 190);
+		logoPanel.setVerticalAlignment(JLabel.BOTTOM);
+		logoPanel.setHorizontalAlignment(JLabel.LEFT);
+		
+		
 		
 		JPanel linkeSeite = new JPanel();
 		linkeSeite.setBackground(new Color(255,255,255));
 		linkeSeite.setPreferredSize(new Dimension(640, 720));
 		//linkeSeite.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 3, new Color(47,85,178)));
-		linkeSeite.setLayout(new BorderLayout(5, 5));
-		linkeSeite.add(jt.getTableHeader(), BorderLayout.PAGE_START);
-		linkeSeite.add(jt, BorderLayout.CENTER);
+		linkeSeite.setLayout(new BorderLayout());
+		
+		linkeSeite.add(logoPanel, BorderLayout.NORTH);
 		
 		JPanel rechteSeite = new JPanel();
 		rechteSeite.setBackground(new Color(255,255,255));
 		rechteSeite.setPreferredSize(new Dimension(640, 720));
+		
+		rechteSeite.add(stat);
 		rechteSeite.add(bewegung);
+		rechteSeite.add(exportiereInExcel);
+		rechteSeite.add(gesamtzahl);
 		
 		fenster.add(linkeSeite);
 		fenster.add(rechteSeite);
