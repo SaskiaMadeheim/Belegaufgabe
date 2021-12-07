@@ -53,20 +53,20 @@ public class Kassenbuch extends Finanzdaten
 		tab.addMergedRegion((new CellRangeAddress(0, 0, 0, 9)));
 		// Schreiben der zweiten Zeile
 		Row zeile2 = tab.createRow(1);
-		zeile2.createCell(0).setCellValue("Anfangsbestand");
-		zeile2.createCell(1).setCellValue((daten.getHaben() - daten.getJaehrlEinnahmen() + daten.getJaehrlAusgaben()) + " ï¿½");
+		zeile2.createCell(0).setCellValue("Anfangsbestand/Euro");
+		zeile2.createCell(1).setCellValue((daten.getHaben() - daten.getJaehrlEinnahmen() + daten.getJaehrlAusgaben()) + " €");
 		// Schreiben der dritten Zeile
 		Row zeile3 = tab.createRow(2);
 		zeile3.createCell(0).setCellValue("Einnahmen");
-		zeile3.createCell(1).setCellValue(daten.getJaehrlEinnahmen() + " ï¿½");
+		zeile3.createCell(1).setCellValue(daten.getJaehrlEinnahmen() + " €");
 		// Schreiben der vierten Zeile
 		Row zeile4 = tab.createRow(3);
 		zeile4.createCell(0).setCellValue("Ausgaben");
-		zeile4.createCell(1).setCellValue(daten.getJaehrlAusgaben() + " ï¿½");
+		zeile4.createCell(1).setCellValue(daten.getJaehrlAusgaben() + " €");
 		// Schreiben der fuenften Zeile
 		Row zeile5 = tab.createRow(4);
 		zeile5.createCell(0).setCellValue("Kassenbestand");
-		zeile5.createCell(1).setCellValue(daten.getHaben() + " ï¿½");
+		zeile5.createCell(1).setCellValue(daten.getHaben() + " €");
 		// Schreiben der siebten Zeile
 		Row zeile7 = tab.createRow(6);
 		for(int i = 0; i < 10; i++)
@@ -92,7 +92,7 @@ public class Kassenbuch extends Finanzdaten
 			createColoredCell(workbook, zeile8, 1 + i*5, "Datum", HorizontalAlignment.CENTER, IndexedColors.GREY_25_PERCENT.getIndex());
 			createColoredCell(workbook, zeile8, 2 + i*5, "Bezeichnung", HorizontalAlignment.CENTER, IndexedColors.GREY_25_PERCENT.getIndex());
 			createColoredCell(workbook, zeile8, 3 + i*5, "Abteilung", HorizontalAlignment.CENTER, IndexedColors.GREY_25_PERCENT.getIndex());
-			createColoredCell(workbook, zeile8, 4 + i*5, "Betrag/ï¿½", HorizontalAlignment.CENTER, IndexedColors.GREY_25_PERCENT.getIndex());
+			createColoredCell(workbook, zeile8, 4 + i*5, "Betrag/€", HorizontalAlignment.CENTER, IndexedColors.GREY_25_PERCENT.getIndex());
 		}
 		// Schreiben der Einnahmen und Ausgaben
 		int n = berechneZeilen();
