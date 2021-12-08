@@ -103,7 +103,7 @@ public class FinanzPage extends JFrame{
 							{
 								Finanzbewegung bewegung = new Finanzbewegung();
 								bewegung.setName(nameIn.getText());
-								bewegung.setDatum(Integer.parseInt(datumIn.getText()));
+								bewegung.setDatum(datumIn.getText());
 								bewegung.setBetrag(Double.parseDouble(betragIn.getText()));
 								
 								//System.out.println(bewegung.getName() + bewegung.getDatum() + bewegung.getBetrag());
