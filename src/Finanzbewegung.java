@@ -3,24 +3,27 @@ public class Finanzbewegung
 {
 	// Instanzvariablen
 	protected String name;
-	protected int datum;
+	protected String datum;
 	protected double betrag;
 	protected boolean positiv;
+	protected String abteilung;
 	
 	// Konstruktoren
 	public Finanzbewegung()
 	{
 		name = "";
-		datum = 0;
+		datum = "";
 		betrag = 0;
 		positiv = true;
+		abteilung = "";
 	}
 	
-	public Finanzbewegung(String name, int datum, double betrag)
+	public Finanzbewegung(String name, String datum, double betrag, String abteilung)
 	{
 		this.name = name;
 		this.datum = datum;
 		this.betrag = betrag;
+		this.abteilung = abteilung;
 		if (betrag < 0)
 			positiv = false;
 		else
@@ -33,7 +36,7 @@ public class Finanzbewegung
 		return name;
 	}
 	
-	public int getDatum()
+	public String getDatum()
 	{
 		return datum;
 	}
@@ -48,12 +51,17 @@ public class Finanzbewegung
 		return positiv;
 	}
 	
+	public String getAbteilung()
+	{
+		return abteilung;
+	}
+	
 	public void setName(String name)
 	{
 		this.name = name;
 	}
 	
-	public void setDatum(int datum)
+	public void setDatum(String datum)
 	{
 		this.datum = datum;
 	}
@@ -61,6 +69,11 @@ public class Finanzbewegung
 	public void setBetrag(double betrag)
 	{
 		this.betrag = betrag;
+	}
+	
+	public void setAbteilung(String abteilung)
+	{
+		this.abteilung = abteilung;
 	}
 	
 	

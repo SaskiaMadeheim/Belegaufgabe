@@ -54,19 +54,19 @@ public class Kassenbuch extends Finanzdaten
 		// Schreiben der zweiten Zeile
 		Row zeile2 = tab.createRow(1);
 		zeile2.createCell(0).setCellValue("Anfangsbestand/Euro");
-		zeile2.createCell(1).setCellValue((daten.getHaben() - daten.getJaehrlEinnahmen() + daten.getJaehrlAusgaben()) + " €");
+		zeile2.createCell(1).setCellValue((daten.getHaben() - daten.getJaehrlEinnahmen() + daten.getJaehrlAusgaben()));
 		// Schreiben der dritten Zeile
 		Row zeile3 = tab.createRow(2);
-		zeile3.createCell(0).setCellValue("Einnahmen");
-		zeile3.createCell(1).setCellValue(daten.getJaehrlEinnahmen() + " €");
+		zeile3.createCell(0).setCellValue("Einnahmen/Euro");
+		zeile3.createCell(1).setCellValue(daten.getJaehrlEinnahmen());
 		// Schreiben der vierten Zeile
 		Row zeile4 = tab.createRow(3);
-		zeile4.createCell(0).setCellValue("Ausgaben");
-		zeile4.createCell(1).setCellValue(daten.getJaehrlAusgaben() + " €");
+		zeile4.createCell(0).setCellValue("Ausgaben/Euro");
+		zeile4.createCell(1).setCellValue(daten.getJaehrlAusgaben());
 		// Schreiben der fuenften Zeile
 		Row zeile5 = tab.createRow(4);
-		zeile5.createCell(0).setCellValue("Kassenbestand");
-		zeile5.createCell(1).setCellValue(daten.getHaben() + " €");
+		zeile5.createCell(0).setCellValue("Kassenbestand/Euro");
+		zeile5.createCell(1).setCellValue(daten.getHaben());
 		// Schreiben der siebten Zeile
 		Row zeile7 = tab.createRow(6);
 		for(int i = 0; i < 10; i++)
@@ -92,7 +92,7 @@ public class Kassenbuch extends Finanzdaten
 			createColoredCell(workbook, zeile8, 1 + i*5, "Datum", HorizontalAlignment.CENTER, IndexedColors.GREY_25_PERCENT.getIndex());
 			createColoredCell(workbook, zeile8, 2 + i*5, "Bezeichnung", HorizontalAlignment.CENTER, IndexedColors.GREY_25_PERCENT.getIndex());
 			createColoredCell(workbook, zeile8, 3 + i*5, "Abteilung", HorizontalAlignment.CENTER, IndexedColors.GREY_25_PERCENT.getIndex());
-			createColoredCell(workbook, zeile8, 4 + i*5, "Betrag/€", HorizontalAlignment.CENTER, IndexedColors.GREY_25_PERCENT.getIndex());
+			createColoredCell(workbook, zeile8, 4 + i*5, "Betrag/Euro", HorizontalAlignment.CENTER, IndexedColors.GREY_25_PERCENT.getIndex());
 		}
 		// Schreiben der Einnahmen und Ausgaben
 		int n = berechneZeilen();
@@ -104,46 +104,29 @@ public class Kassenbuch extends Finanzdaten
 		int zaehlerA = 0;
 		for(Finanzbewegung f: daten.getKontobew())
 		{
-			if(f.getPositiv())
+			if(f.getPositiv()) 			// Schreiben der Zeilen der Einnahmen
 			{
 				zaehlerE++;
 				tab.getRow(zaehlerE+7).createCell(0).setCellValue(zaehlerE);
 				tab.getRow(zaehlerE+7).createCell(1).setCellValue(f.getDatum());
 				tab.getRow(zaehlerE+7).createCell(2).setCellValue(f.getName());
-				tab.getRow(zaehlerE+7).createCell(3).setCellValue("Schwimmen");
+				tab.getRow(zaehlerE+7).createCell(3).setCellValue(f.getAbteilung());
 				tab.getRow(zaehlerE+7).createCell(4).setCellValue(f.getBetrag());
 			}
-			else
+			else						// Schreiben der Zeilen der Ausgaben
 			{
 				zaehlerA++;
 				tab.getRow(zaehlerA+7).createCell(5).setCellValue(zaehlerA);
 				tab.getRow(zaehlerA+7).createCell(6).setCellValue(f.getDatum());
 				tab.getRow(zaehlerA+7).createCell(7).setCellValue(f.getName());
-				tab.getRow(zaehlerA+7).createCell(8).setCellValue("Schwimmen");
+				tab.getRow(zaehlerA+7).createCell(8).setCellValue(f.getAbteilung());
 				tab.getRow(zaehlerA+7).createCell(9).setCellValue(f.getBetrag()*(-1));
 			}
 		}
 		
 		// Duenne Striche einfuegen
-		for(int i = 0; i < zaehleEin(); i++)
-		{
-			for(int j = 0; j < 5; j++)
-			{
-				CellStyle cellStyle = workbook.createCellStyle();
-				borderStyleAll(cellStyle);
-				tab.getRow(8+i).getCell(j).setCellStyle(cellStyle);
-			}
-		}
-				
-		for(int i = 0; i < zaehleAus(); i++)
-		{
-			for(int j = 5; j < 10; j++)
-			{
-				CellStyle cellStyle = workbook.createCellStyle();
-				borderStyleAll(cellStyle);
-				tab.getRow(8+i).getCell(j).setCellStyle(cellStyle);
-			}
-		}	
+		duenneStriche(zaehleEin(), 0, 5, workbook, tab);
+		duenneStriche(zaehleAus(), 5, 10, workbook, tab);
 		
 		// Dicke Striche einfuegen
 		for (int i = 8; i<(8+n); i++)
@@ -173,11 +156,12 @@ public class Kassenbuch extends Finanzdaten
 	    Cell cell = row.createCell(column);
 	    cell.setCellValue(value);
 	    CellStyle cellStyle = wb.createCellStyle();
+	    // Textausrichtung
 	    cellStyle.setAlignment(halign);
 	 	// Farbe einstellen
 	 	cellStyle.setFillForegroundColor(colorIdx);
-	 	// Fï¿½llart festlegen
-	 	cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);//Einfach ausfï¿½llen
+	 	// Fuellart festlegen
+	 	cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);//Einfach ausfuellen
 	 	// Borderstyle
 	 	borderStyleAll(cellStyle);
 	 	// Zellenstil anwenden
@@ -189,6 +173,7 @@ public class Kassenbuch extends Finanzdaten
 	    Cell cell = row.createCell(column);
 	    cell.setCellValue(value);
 	    CellStyle cellStyle = wb.createCellStyle();
+	    // Textausrichtung
 	    cellStyle.setAlignment(halign);
 	    cell.setCellStyle(cellStyle);
 	}
@@ -263,11 +248,25 @@ public class Kassenbuch extends Finanzdaten
 		return n;
 	}
 	
+	public void duenneStriche(int zaehler, int anfang, int ende, XSSFWorkbook wb, XSSFSheet tab)
+	{
+		for(int i = 0; i < zaehler; i++)
+		{
+			for(int j = anfang; j < ende; j++)
+			{
+				CellStyle cellStyle = wb.createCellStyle();
+				borderStyleAll(cellStyle);
+				tab.getRow(8+i).getCell(j).setCellStyle(cellStyle);
+			}
+		}
+	}
+
+	
 	public static void main(String args[]) throws IOException
 	{
-		Finanzbewegung test1 = new Finanzbewegung("Einnahme", 9052020, 500);
-		Finanzbewegung test2 = new Finanzbewegung("Ausgabe", 10052020, -200);
-		Finanzbewegung test3 = new Finanzbewegung("Ausgabe", 11052020, -100);
+		Finanzbewegung test1 = new Finanzbewegung("Einnahme", "09/05/2020", 500, "Schwimmen");
+		Finanzbewegung test2 = new Finanzbewegung("Ausgabe", "10/05/2020", -200, "Handball");
+		Finanzbewegung test3 = new Finanzbewegung("Ausgabe", "11/05/2020", -100, "Volleyball");
 		ArrayList<Finanzbewegung> test = new ArrayList<Finanzbewegung>();
 		test.add(test1);
 		test.add(test2);
