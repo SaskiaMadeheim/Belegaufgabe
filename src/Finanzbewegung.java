@@ -1,3 +1,4 @@
+import java.util.Scanner;
 
 public class Finanzbewegung
 {
@@ -76,5 +77,9 @@ public class Finanzbewegung
 		this.abteilung = abteilung;
 	}
 	
-	
+	// Infos ausgeben
+	public void gebeInfos()
+	{
+		System.out.printf("%s: Datum %s, Abteilung %s, Betrag %1.2f\n", getName(), getDatum(), getAbteilung(), getBetrag());
+	}
 }

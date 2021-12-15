@@ -271,7 +271,7 @@ public class Kassenbuch extends Finanzdaten
 		test.add(test1);
 		test.add(test2);
 		test.add(test3);
-		Finanzdaten f = new Finanzdaten (0, test);
+		Finanzdaten f = new Finanzdaten (0, test, "XY.csv");
 		Kassenbuch k = new Kassenbuch (f);
 		k.schreibeExcel();
 		
