@@ -2,109 +2,57 @@ import java.util.ArrayList;
 
 public class Tag 
 {
-	private int tagNr;
-	private String wochenTag;
-	private int monatNr;
 	private ArrayList<Event> events;
-	private boolean zustand;
+	private String wochenTag;
+	private int tagNr;
+	private int monatNr;
+	private int jahrNr;
 	
-	public Tag(int tagNr, String wochenTag, int monatNr) 
+	public Tag(int tagNr, String wochenTag, int monatNr, int jahrNr) 
 	{
 		this.events = new ArrayList<Event>();
 		this.tagNr = tagNr;
 		this.wochenTag = wochenTag;
 		this.monatNr = monatNr;
-		zustand = false;
+		this.jahrNr = jahrNr;
+		
+	}
+	public ArrayList<Event> getEvent() {
+		return events;
 	}
 	
-	public Tag(int tagNr, String wochenTag, int monatNr, ArrayList<Event> events) 
-	{
-		this.tagNr = tagNr;
-		this.wochenTag = wochenTag;
-		this.monatNr = monatNr;
+	public void setEvent(ArrayList<Event> events) {
 		this.events = events;
-		zustand = true;
 	}
-
-	public int getTagNr() {
-		return tagNr;
-	}
-
-	public void setTagNr(int tagNr) {
-		this.tagNr = tagNr;
-	}
-
 	public String getWochenTag() {
 		return wochenTag;
 	}
-
 	public void setWochenTag(String wochenTag) {
 		this.wochenTag = wochenTag;
 	}
-
-	public int getMonatNr() {
-		return monatNr;
+	public int getTagNr() {
+		return tagNr;
 	}
-
-	public void setMonatNr(int monatNr) {
-		this.monatNr = monatNr;
+	public void setTagNr(int tagNr) {
+		this.tagNr = tagNr;
 	}
-
 	public ArrayList<Event> getEvents() {
 		return events;
 	}
-
 	public void setEvents(ArrayList<Event> events) {
 		this.events = events;
-		this.zustand = true;
 	}
-	
-	public void addEvent(Event event)
-	{
-		this.events.add(event);
+	public int getMonatNr() {
+		return monatNr;
 	}
-	//---Entfernen eines Events
-	public void delEvent() {
-		this.events = new ArrayList<Event>();
-		this.zustand = false;
+	public void setMonatNr(int monatNr) {
+		this.monatNr = monatNr;
 	}
-	
-	public boolean getZustand() {
-		return zustand;
+	public int getJahrNr() {
+		return jahrNr;
+	}
+	public void setJahrNr(int jahrNr) {
+		this.jahrNr = jahrNr;
 	}
 
-	public void setZustand(boolean zustand) {
-		this.zustand = zustand;
-	}
-
-	public String getTag()
-	{
-		if (tagNr < 10)
-		{	
-				StringBuffer sb = new StringBuffer();
-				for (Event event : this.events)
-				{
-					sb.append(event.ausgabeEvent()).append(" | ");
-				}
-				String alleEventsAmTag = sb.toString();
-				return " " + tagNr + ". " + wochenTag + " " + alleEventsAmTag;
-		}
-		else
-		{	
-				StringBuffer sb = new StringBuffer();
-				for (Event event : this.events)
-				{
-					sb.append(event.ausgabeEvent()).append(" | ");
-				}
-				String alleEventsAmTag = sb.toString();
-				return tagNr + ". " + wochenTag + " " + alleEventsAmTag;	
-		}
-		
-	}
-
-	
-	
-	
 }
-
-
