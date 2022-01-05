@@ -100,9 +100,9 @@ public class Finanzdaten
 	}
 	
 	// CSV einlesen
-	public ArrayList<Finanzbewegung> leseCSV() throws FileNotFoundException
+	public ArrayList<Finanzbewegung> leseCSV(String datname) throws FileNotFoundException
 	{
-		File datei = new File(dateiname);
+		File datei = new File(datname);
 		Scanner ein = new Scanner(datei);
 		ArrayList<Finanzbewegung> liste = new ArrayList<Finanzbewegung>();
 		// while-Schleife zum Lesen der Datei

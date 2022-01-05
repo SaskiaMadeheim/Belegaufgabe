@@ -25,10 +25,12 @@ import javax.swing.border.Border;
 @SuppressWarnings("serial")
 public class FinanzPage extends JFrame{
 	
-	private Finanzdaten finanzdaten = new Finanzdaten("dat.csv");
-	
-	public FinanzPage()
+	public FinanzPage() throws FileNotFoundException
 	{
+		Finanzdaten finanzdaten = new Finanzdaten("dat.csv");
+		ArrayList<Finanzbewegung> einlesen = finanzdaten.leseCSV("dat.csv");
+		finanzdaten.setKontobew(einlesen);
+		
 		ImageIcon bild = new ImageIcon("logo.png");
 		Border buttonBoder = BorderFactory.createLineBorder(new Color(47,85,178), 3);
 		
