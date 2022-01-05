@@ -1,6 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -19,6 +20,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
@@ -36,6 +39,33 @@ public class FinanzPage extends JFrame{
 		
 		JFrame fenster = new JFrame();
 		fenster.setLayout(new GridLayout());
+		
+		final TabelleModel model = new TabelleModel();
+		for(Finanzbewegung f : einlesen)
+		{
+			model.hinzufFinanzbewegung(f);
+		}
+		
+		JTable tabelle = new JTable(model);
+		tabelle.setBackground(new Color(255,255,255));
+		tabelle.setForeground(new Color(47,85,178));
+		tabelle.setFont(new Font("Arial", Font.PLAIN, 18));
+		tabelle.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		tabelle.setPreferredSize(new Dimension(600,1000));
+		tabelle.setBorder(BorderFactory.createMatteBorder(0, 3, 3, 3, new Color(47,85,178)));
+		tabelle.setShowGrid(true);
+		tabelle.setGridColor(new Color(47,85,178));
+		tabelle.setRowHeight(30);
+		tabelle.setIntercellSpacing(new Dimension(7,0));
+		tabelle.setFocusable(false);
+		
+		tabelle.getColumnModel().getColumn(0).setPreferredWidth(110);
+		tabelle.getColumnModel().getColumn(1).setPreferredWidth(110);
+		
+		tabelle.getTableHeader().setBackground(new Color(47,85,178));
+		tabelle.getTableHeader().setForeground(new Color(255,255,255));
+		tabelle.getTableHeader().setFont(new Font("Arial", Font.PLAIN, 18));
+		
 		
 		JButton bewegung = new JButton("neue Kontobewegung");
 		bewegung.setFocusable(false);
@@ -118,6 +148,8 @@ public class FinanzPage extends JFrame{
 								bewegung.setDatum(datumIn.getText());
 								bewegung.setAbteilung(abteilungIn.getText());
 								bewegung.setBetrag(Double.parseDouble(betragIn.getText()));
+								
+								model.hinzufFinanzbewegung(bewegung);
 								
 								//bewegung.gebeInfos();
 								try {
@@ -205,7 +237,36 @@ public class FinanzPage extends JFrame{
 		logoPanel.setVerticalAlignment(JLabel.BOTTOM);
 		logoPanel.setHorizontalAlignment(JLabel.LEFT);
 		
+		JButton back = new JButton("zur\u00fcck");
+		back.setFocusable(false);
+		back.setPreferredSize(new Dimension(100,50));;
+		back.setBackground(new Color(255,255,255));
+		back.setBorder(buttonBoder);
+		back.setForeground(new Color(47,85,178));
+		back.setFont(new Font("Arial", Font.PLAIN, 20));
+		back.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				fenster.dispose();
+				LaunchPage lp = new LaunchPage();
+			}
+		});
 		
+		JPanel linksOben = new JPanel();
+		linksOben.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
+		linksOben.setBackground(new Color(255,255,255));
+		
+		linksOben.add(logoPanel);
+		linksOben.add(back);
+		
+		JScrollPane scroll = new JScrollPane(tabelle);
+		scroll.setPreferredSize(new Dimension(600,500));
+		scroll.setBorder(BorderFactory.createMatteBorder(0,0,3,0, new Color(47,87,178)));
+		
+		JPanel linksUnten = new JPanel();
+		linksUnten.add(scroll);
+		linksUnten.setBackground(new Color(255,255,255));
 		
 		JPanel linkeSeite = new JPanel();
 		linkeSeite.setBackground(new Color(255,255,255));
@@ -213,7 +274,8 @@ public class FinanzPage extends JFrame{
 		//linkeSeite.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 3, new Color(47,85,178)));
 		linkeSeite.setLayout(new BorderLayout());
 		
-		linkeSeite.add(logoPanel, BorderLayout.NORTH);
+		linkeSeite.add(linksOben, BorderLayout.NORTH);
+		linkeSeite.add(linksUnten, BorderLayout.CENTER);
 		
 		JPanel rechteSeite = new JPanel();
 		rechteSeite.setBackground(new Color(255,255,255));

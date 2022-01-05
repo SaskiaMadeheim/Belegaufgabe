@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -94,7 +95,12 @@ public class LaunchPage extends JFrame{
 				if(e.getSource() == finanzen)
 				{
 					fenster.dispose();
-					FinanzPage fs = new FinanzPage();
+					try {
+						FinanzPage fs = new FinanzPage();
+					} catch (FileNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			}
 		});
