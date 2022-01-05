@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -18,7 +19,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
@@ -140,6 +140,25 @@ public class FinanzPage extends JFrame{
 		exportiereInExcel.setBorder(buttonBoder);
 		exportiereInExcel.setForeground(new Color(47,85,178));
 		exportiereInExcel.setFont(new Font("Arial", Font.PLAIN, 20));
+		exportiereInExcel.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				exportiereInExcel.setText("Daten exportiert");
+				Kassenbuch dat = new Kassenbuch();
+				try {
+					dat.schreibeExcel();
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				//exportiereInExcel.setText("Exportiere Daten in Excel");
+				
+			}
+		});
 		
 		ImageIcon statistik = new ImageIcon("Einnahmen_Ausgaben.jpg");
 		JLabel stat = new JLabel();
