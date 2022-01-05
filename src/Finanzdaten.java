@@ -24,6 +24,15 @@ public class Finanzdaten
 		dateiname = "";
 	}
 	
+	public Finanzdaten(String name)
+	{
+		haben = 0;
+		jaehrlEinnahmen = 0;
+		jaehrlAusgaben = 0;
+		kontobew = new ArrayList<Finanzbewegung>();
+		dateiname = name;
+	}
+	
 	public Finanzdaten(double haben, double jaehrlEinnahmen, double jaehrlAusgaben, String dateiname)
 	{
 		this.haben = haben;

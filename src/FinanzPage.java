@@ -25,7 +25,7 @@ import javax.swing.border.Border;
 @SuppressWarnings("serial")
 public class FinanzPage extends JFrame{
 	
-	private ArrayList<Finanzbewegung> kontobw = new ArrayList<Finanzbewegung>();
+	private Finanzdaten finanzdaten = new Finanzdaten("dat.csv");
 	
 	public FinanzPage()
 	{
@@ -51,6 +51,14 @@ public class FinanzPage extends JFrame{
 					JFrame addFenster = new JFrame();
 					addFenster.setLayout(new BorderLayout());
 					
+					JLabel datum = new JLabel("Buchungsdatum: ");
+					datum.setForeground(new Color(47,85,178));
+					datum.setFont(new Font("Arial", Font.PLAIN, 18));
+					
+					JTextField datumIn = new JTextField();
+					datumIn.setForeground(new Color(47,85,178));
+					datumIn.setFont(new Font("Arial", Font.PLAIN, 16));
+					
 					JLabel name = new JLabel("Buchungstext:");
 					name.setForeground(new Color(47,85,178));
 					name.setFont(new Font("Arial", Font.PLAIN, 18));
@@ -59,13 +67,13 @@ public class FinanzPage extends JFrame{
 					nameIn.setForeground(new Color(47,85,178));
 					nameIn.setFont(new Font("Arial", Font.PLAIN, 16));
 					
-					JLabel datum = new JLabel("Buchungsdatum: ");
-					datum.setForeground(new Color(47,85,178));
-					datum.setFont(new Font("Arial", Font.PLAIN, 18));
+					JLabel abteilung = new JLabel("Abteilung:");
+					abteilung.setForeground(new Color(47,85,178));
+					abteilung.setFont(new Font("Arial", Font.PLAIN, 18));
 					
-					JTextField datumIn = new JTextField();
-					datumIn.setForeground(new Color(47,85,178));
-					datumIn.setFont(new Font("Arial", Font.PLAIN, 16));
+					JTextField abteilungIn = new JTextField();
+					abteilungIn.setForeground(new Color(47,85,178));
+					abteilungIn.setFont(new Font("Arial", Font.PLAIN, 16));
 					
 					JLabel betrag = new JLabel("Betrag:");
 					betrag.setForeground(new Color(47,85,178));
@@ -76,15 +84,17 @@ public class FinanzPage extends JFrame{
 					betragIn.setFont(new Font("Arial", Font.PLAIN, 16));
 					
 					JPanel addFensterOben = new JPanel();
-					addFensterOben.setLayout(new GridLayout(3, 2));
+					addFensterOben.setLayout(new GridLayout(4, 2));
 					addFensterOben.setBackground(Color.white);
 					Border borderOben = BorderFactory.createEmptyBorder(10, 10, 10, 10);
 					addFensterOben.setBorder(borderOben);
 					
-					addFensterOben.add(name);
-					addFensterOben.add(nameIn);
 					addFensterOben.add(datum);
 					addFensterOben.add(datumIn);
+					addFensterOben.add(name);
+					addFensterOben.add(nameIn);
+					addFensterOben.add(abteilung);
+					addFensterOben.add(abteilungIn);
 					addFensterOben.add(betrag);
 					addFensterOben.add(betragIn);
 					
@@ -104,11 +114,15 @@ public class FinanzPage extends JFrame{
 								Finanzbewegung bewegung = new Finanzbewegung();
 								bewegung.setName(nameIn.getText());
 								bewegung.setDatum(datumIn.getText());
+								bewegung.setAbteilung(abteilungIn.getText());
 								bewegung.setBetrag(Double.parseDouble(betragIn.getText()));
 								
-								//System.out.println(bewegung.getName() + bewegung.getDatum() + bewegung.getBetrag());
-								kontobw.add(bewegung);
-								
+								//bewegung.gebeInfos();
+								try {
+									finanzdaten.newFinanzBewegung(bewegung);
+								} catch (FileNotFoundException e1) {
+									e1.printStackTrace();
+								}
 								addFenster.dispose();
 							}
 							
