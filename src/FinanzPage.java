@@ -51,8 +51,8 @@ public class FinanzPage extends JFrame{
 		tabelle.setForeground(new Color(47,85,178));
 		tabelle.setFont(new Font("Arial", Font.PLAIN, 18));
 		tabelle.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-		tabelle.setPreferredSize(new Dimension(600,1000));
-		tabelle.setBorder(BorderFactory.createMatteBorder(0, 3, 3, 3, new Color(47,85,178)));
+		//tabelle.setPreferredSize(new Dimension(600,1000));
+		//tabelle.setBorder(BorderFactory.createMatteBorder(0, 3, 3, 3, new Color(47,85,178)));
 		tabelle.setShowGrid(true);
 		tabelle.setGridColor(new Color(47,85,178));
 		tabelle.setRowHeight(30);
@@ -65,6 +65,7 @@ public class FinanzPage extends JFrame{
 		tabelle.getTableHeader().setBackground(new Color(47,85,178));
 		tabelle.getTableHeader().setForeground(new Color(255,255,255));
 		tabelle.getTableHeader().setFont(new Font("Arial", Font.PLAIN, 18));
+		tabelle.getTableHeader().setOpaque(false);
 		
 		
 		JButton bewegung = new JButton("neue Kontobewegung");
@@ -214,6 +215,77 @@ public class FinanzPage extends JFrame{
 		stat.setPreferredSize(new Dimension(640,420));
 		stat.setBackground(new Color(255,255,255));
 		
+		DiagrammFinanz diagramm = new DiagrammFinanz();
+		JPanel panelDiagramm = diagramm.createAndShowGUI(finanzdaten.getJaehrlEinnahmen(), finanzdaten.getJaehrlAusgaben());
+		
+		System.out.println();
+		
+		JLabel typ = new JLabel("Typ");
+		typ.setForeground(new Color(47,85,178));
+		typ.setFont(new Font("Arial", Font.BOLD, 18));
+		typ.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(47,85,178)));
+		typ.setHorizontalAlignment(JLabel.CENTER);
+		
+		JLabel betrag = new JLabel("Betrag");
+		betrag.setForeground(new Color(47,85,178));
+		betrag.setFont(new Font("Arial", Font.BOLD, 18));
+		betrag.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(47,85,178)));
+		betrag.setHorizontalAlignment(JLabel.CENTER);
+		
+		JLabel einnahmen = new JLabel("Einnahmen");
+		einnahmen.setForeground(new Color(47,85,178));
+		einnahmen.setFont(new Font("Arial", Font.PLAIN, 18));
+		einnahmen.setBorder(BorderFactory.createMatteBorder(1, 0, 0,0 , new Color(47,85,178)));
+		
+		JLabel einnahmenBetrag = new JLabel();
+		einnahmenBetrag.setForeground(new Color(47,85,178));
+		einnahmenBetrag.setFont(new Font("Arial", Font.PLAIN, 18));
+		einnahmenBetrag.setText(finanzdaten.getJaehrlEinnahmen()+ "");
+		einnahmenBetrag.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, new Color(47,85,178)));
+		einnahmenBetrag.setHorizontalAlignment(JLabel.RIGHT);
+		
+		JLabel ausgabe = new JLabel("Ausgabe");
+		ausgabe.setForeground(new Color(47,85,178));
+		ausgabe.setFont(new Font("Arial", Font.PLAIN, 18));
+		ausgabe.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, new Color(47,85,178)));
+		
+		JLabel ausgabenBetrag = new JLabel();
+		ausgabenBetrag.setForeground(new Color(47,85,178));
+		ausgabenBetrag.setFont(new Font("Arial", Font.PLAIN, 18));
+		ausgabenBetrag.setText(finanzdaten.getJaehrlAusgaben() + "");
+		ausgabenBetrag.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, new Color(47,85,178)));
+		ausgabenBetrag.setHorizontalAlignment(JLabel.RIGHT);
+		
+		JLabel differenz = new JLabel("Differenz");
+		differenz.setForeground(new Color(47,85,178));
+		differenz.setFont(new Font("Arial", Font.PLAIN, 18));
+		differenz.setBorder(BorderFactory.createMatteBorder(2, 0, 0, 0, new Color(47,85,178)));
+		
+		JLabel differenzBetrag = new JLabel();
+		differenzBetrag.setForeground(new Color(47,85,178));
+		differenzBetrag.setFont(new Font("Arial", Font.PLAIN, 18));
+		differenzBetrag.setText((finanzdaten.jaehrlEinnahmen-finanzdaten.jaehrlAusgaben) + "");
+		differenzBetrag.setBorder(BorderFactory.createMatteBorder(2, 0, 0, 0, new Color(47,85,178)));
+		differenzBetrag.setHorizontalAlignment(JLabel.RIGHT);
+		
+		JPanel leer = new JPanel();
+		leer.setBackground(Color.white);
+		leer.setPreferredSize(new Dimension(640,100));
+				
+		JPanel einAus = new JPanel();
+		einAus.setBackground(Color.WHITE);
+		
+		einAus.setLayout(new GridLayout(4,2));
+		einAus.add(typ);
+		einAus.add(betrag);
+		einAus.add(einnahmen);
+		einAus.add(einnahmenBetrag);
+		einAus.add(ausgabe);
+		einAus.add(ausgabenBetrag);
+		einAus.add(differenz);
+		einAus.add(differenzBetrag);
+		
+		
 		JLabel gesamtzahl = new JLabel("Gesamtzahl der Buchungen: 23");
 		gesamtzahl.setPreferredSize(new Dimension(300,50));
 		gesamtzahl.setBackground(Color.white);
@@ -262,7 +334,8 @@ public class FinanzPage extends JFrame{
 		
 		JScrollPane scroll = new JScrollPane(tabelle);
 		scroll.setPreferredSize(new Dimension(600,500));
-		scroll.setBorder(BorderFactory.createMatteBorder(0,0,3,0, new Color(47,87,178)));
+		scroll.setBorder(BorderFactory.createMatteBorder(0,3,3,3, new Color(47,87,178)));
+		scroll.setBackground(new Color(47,87,178));
 		
 		JPanel linksUnten = new JPanel();
 		linksUnten.add(scroll);
@@ -281,7 +354,10 @@ public class FinanzPage extends JFrame{
 		rechteSeite.setBackground(new Color(255,255,255));
 		rechteSeite.setPreferredSize(new Dimension(640, 720));
 		
-		rechteSeite.add(stat);
+		//rechteSeite.add(stat);
+		rechteSeite.add(leer);
+		rechteSeite.add(panelDiagramm);
+		rechteSeite.add(einAus);
 		rechteSeite.add(bewegung);
 		rechteSeite.add(exportiereInExcel);
 		rechteSeite.add(gesamtzahl);
