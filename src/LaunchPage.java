@@ -56,7 +56,7 @@ public class LaunchPage extends JFrame{
 				if (e.getSource() == mitgliederverwaltung)
 				{
 					fenster.dispose();
-					System.out.println("Mitgliederverwaltung");
+					MitgliederPage mp = new MitgliederPage();
 			
 				}
 				

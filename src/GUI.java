@@ -4,7 +4,7 @@ public class GUI {
 
 	public static void main(String[] args) throws FileNotFoundException {
 		//LaunchPage lp = new LaunchPage();
-		FinanzPage fp = new FinanzPage();
+		MitgliederPage mp = new MitgliederPage();
 	}
 
 }
