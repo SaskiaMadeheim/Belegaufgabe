@@ -24,13 +24,13 @@ public class Finanzdaten
 		dateiname = "";
 	}
 	
-	public Finanzdaten(String name)
+	public Finanzdaten(String dateiname)
 	{
 		haben = 0;
 		jaehrlEinnahmen = 0;
 		jaehrlAusgaben = 0;
 		kontobew = new ArrayList<Finanzbewegung>();
-		dateiname = name;
+		this.dateiname = dateiname;
 	}
 	
 	public Finanzdaten(double haben, double jaehrlEinnahmen, double jaehrlAusgaben, String dateiname)
@@ -47,7 +47,7 @@ public class Finanzdaten
 		for(Finanzbewegung f: kontobew)
 		{
 			double betrag = f.getBetrag();
-			if (f.getPositiv())
+			if (f.getBetrag() >= 0)
 			{
 				jaehrlEinnahmen = jaehrlEinnahmen + betrag;
 			}
@@ -91,7 +91,7 @@ public class Finanzdaten
 	public void newFinanzBewegung(Finanzbewegung f) throws FileNotFoundException
 	{
 		haben = haben + f.getBetrag();
-		if (f.getPositiv())
+		if (f.getBetrag() >= 0)
 			jaehrlEinnahmen = jaehrlEinnahmen + f.getBetrag();
 		else
 			jaehrlAusgaben = jaehrlAusgaben + (-1)*f.getBetrag();
@@ -110,7 +110,7 @@ public class Finanzdaten
 		{
 			String zeile = ein.nextLine();
 			String s[] = zeile.split(";");
-			String datum = "";
+			String datum = "0000-00-00";
 			String bezeichnung = "";
 			String abteilung = "";
 			double betrag = 0;
@@ -144,7 +144,7 @@ public class Finanzdaten
 		// for-Schleife zum Schreiben der Datei
 		for(Finanzbewegung f: kontobew)
 		{
-			aus.printf(f.getDatum() + ";");
+			aus.printf(f.getDatumSt() + ";");
 			aus.printf(f.getName() + ";");
 			aus.printf(f.getAbteilung() + ";");
 			aus.printf("%1.2f	", f.getBetrag());
@@ -165,8 +165,8 @@ public class Finanzdaten
 	// Testen
 	public static void main(String args[]) throws IOException
 	{
-		/*Finanzdaten f = new Finanzdaten();
-		ArrayList<Finanzbewegung> test = f.leseCSV("TestFinanzbewegungen.csv");
+		/*Finanzdaten f = new Finanzdaten("TestFinanzbewegungen.csv");
+		ArrayList<Finanzbewegung> test = f.leseCSV(f.dateiname);
 		f.gebeInfos(test);
 		f.setKontobew(test);
 		f.schreibeCSV("TestFinanzbewegungen2.csv");*/

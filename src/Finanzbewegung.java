@@ -1,34 +1,28 @@
-import java.util.Scanner;
+import java.time.LocalDate;
 
 public class Finanzbewegung
 {
 	// Instanzvariablen
 	protected String name;
-	protected String datum;
+	protected LocalDate datum;
 	protected double betrag;
-	protected boolean positiv;
 	protected String abteilung;
 	
 	// Konstruktoren
 	public Finanzbewegung()
 	{
 		name = "";
-		datum = "";
+		datum = LocalDate.of(0000, 0, 0);
 		betrag = 0;
-		positiv = true;
 		abteilung = "";
 	}
 	
 	public Finanzbewegung(String name, String datum, double betrag, String abteilung)
 	{
 		this.name = name;
-		this.datum = datum;
+		this.datum = LocalDate.parse(datum);
 		this.betrag = betrag;
 		this.abteilung = abteilung;
-		if (betrag < 0)
-			positiv = false;
-		else
-			positiv = true;
 	}
 	
 	// getter/setter
@@ -37,19 +31,19 @@ public class Finanzbewegung
 		return name;
 	}
 	
-	public String getDatum()
+	public LocalDate getDatumLD()
 	{
 		return datum;
+	}
+	
+	public String getDatumSt()
+	{
+		return datum.toString();
 	}
 	
 	public double getBetrag()
 	{
 		return betrag;
-	}
-	
-	public boolean getPositiv()
-	{
-		return positiv;
 	}
 	
 	public String getAbteilung()
@@ -62,7 +56,7 @@ public class Finanzbewegung
 		this.name = name;
 	}
 	
-	public void setDatum(String datum)
+	public void setDatum(LocalDate datum)
 	{
 		this.datum = datum;
 	}
@@ -80,6 +74,6 @@ public class Finanzbewegung
 	// Infos ausgeben
 	public void gebeInfos()
 	{
-		System.out.printf("%s: Datum %s, Abteilung %s, Betrag %1.2f\n", getName(), getDatum(), getAbteilung(), getBetrag());
+		System.out.printf("%s: Datum %s, Abteilung %s, Betrag %1.2f\n", getName(), getDatumSt(), getAbteilung(), getBetrag());
 	}
 }

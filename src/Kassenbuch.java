@@ -104,11 +104,11 @@ public class Kassenbuch extends Finanzdaten
 		int zaehlerA = 0;
 		for(Finanzbewegung f: daten.getKontobew())
 		{
-			if(f.getPositiv()) 			// Schreiben der Zeilen der Einnahmen
+			if(f.getBetrag() >= 0) 			// Schreiben der Zeilen der Einnahmen
 			{
 				zaehlerE++;
 				tab.getRow(zaehlerE+7).createCell(0).setCellValue(zaehlerE);
-				tab.getRow(zaehlerE+7).createCell(1).setCellValue(f.getDatum());
+				tab.getRow(zaehlerE+7).createCell(1).setCellValue(f.getDatumSt());
 				tab.getRow(zaehlerE+7).createCell(2).setCellValue(f.getName());
 				tab.getRow(zaehlerE+7).createCell(3).setCellValue(f.getAbteilung());
 				tab.getRow(zaehlerE+7).createCell(4).setCellValue(f.getBetrag());
@@ -117,7 +117,7 @@ public class Kassenbuch extends Finanzdaten
 			{
 				zaehlerA++;
 				tab.getRow(zaehlerA+7).createCell(5).setCellValue(zaehlerA);
-				tab.getRow(zaehlerA+7).createCell(6).setCellValue(f.getDatum());
+				tab.getRow(zaehlerA+7).createCell(6).setCellValue(f.getDatumSt());
 				tab.getRow(zaehlerA+7).createCell(7).setCellValue(f.getName());
 				tab.getRow(zaehlerA+7).createCell(8).setCellValue(f.getAbteilung());
 				tab.getRow(zaehlerA+7).createCell(9).setCellValue(f.getBetrag()*(-1));
@@ -213,7 +213,7 @@ public class Kassenbuch extends Finanzdaten
 		int zaehler = 0;
 		for(Finanzbewegung f: daten.getKontobew())
 		{
-			if(f.getPositiv())
+			if(f.getBetrag() >= 0)
 			{
 				zaehler++;
 			}
@@ -226,7 +226,7 @@ public class Kassenbuch extends Finanzdaten
 		int zaehler = 0;
 		for(Finanzbewegung f: daten.getKontobew())
 		{
-			if(!f.getPositiv())
+			if(!(f.getBetrag() >= 0))
 			{
 				zaehler++;
 			}
@@ -264,9 +264,9 @@ public class Kassenbuch extends Finanzdaten
 	
 	public static void main(String args[]) throws IOException
 	{
-		Finanzbewegung test1 = new Finanzbewegung("Einnahme", "09/05/2020", 500, "Schwimmen");
-		Finanzbewegung test2 = new Finanzbewegung("Ausgabe", "10/05/2020", -200, "Handball");
-		Finanzbewegung test3 = new Finanzbewegung("Ausgabe", "11/05/2020", -100, "Volleyball");
+		Finanzbewegung test1 = new Finanzbewegung("Einnahme", "2020-05-09", 500, "Schwimmen");
+		Finanzbewegung test2 = new Finanzbewegung("Ausgabe", "2020-05-10", -200, "Handball");
+		Finanzbewegung test3 = new Finanzbewegung("Ausgabe", "2020-05-11", -100, "Volleyball");
 		ArrayList<Finanzbewegung> test = new ArrayList<Finanzbewegung>();
 		test.add(test1);
 		test.add(test2);
