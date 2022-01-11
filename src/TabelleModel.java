@@ -43,7 +43,7 @@ public class TabelleModel implements TableModel{
 		Finanzbewegung finanzbewegung = (Finanzbewegung)finanzbewegungen.get(rowIndex);
 		
 		switch( columnIndex ){
-			case 0: return finanzbewegung.getDatum();
+			case 0: return finanzbewegung.getDatumSt();
 			case 1: return finanzbewegung.getName();
 			case 2: return finanzbewegung.getAbteilung();
 			case 3: return new Double(finanzbewegung.getBetrag()); 
