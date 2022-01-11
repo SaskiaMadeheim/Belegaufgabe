@@ -250,6 +250,8 @@ public class Kalender
 		Kalender kalender = new Kalender();
 		kalender.leseKalender();
 		
+		PrintWriter aus = new PrintWriter("Eventliste.txt");
+		
 		Jahr jahr = kalender.getKalender().get(jahresZahl-2021);
 	
 		System.out.printf("Termine im Jahr %d: \n", jahresZahl);
@@ -261,7 +263,7 @@ public class Kalender
 				for (Event event : tag.getEvents())
 				{
 					if (event.isVeranstaltung() == true)
-						System.out.printf(" %s \n", event.ausgabeEventMitDatum());
+						aus.printf(" %s \n", event.ausgabeEventMitDatum());
 				}
 			}
 		}
