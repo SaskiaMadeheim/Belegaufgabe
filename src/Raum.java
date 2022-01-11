@@ -12,6 +12,11 @@ public class Raum
 		this.kapazitaet = kapazitaet;
 	}
 	
+	public Raum()
+	{
+		this.bezeichnung = "steht noch nicht fest";
+	}
+	
 	public Raum(String bezeichnung)
 	{
 		this.bezeichnung = bezeichnung;

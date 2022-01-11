@@ -6,13 +6,15 @@ public class Event
 {
 	private String event;
 	private Raum raum;
+	private boolean veranstaltung;
 	private int tagNr;
 	private int monatNr;
 	private int jahresZahl;
+	private String wochenTag;
 	private LocalTime anfang;
 	private LocalTime ende;
 	
-	public Event(String event, String datum, String anfang, String ende) 
+	public Event(String event, String datum, boolean veranstaltung, String wochenTag, String anfang, String ende) 
 	{
 		String[] datumStr = datum.split("\\.");
 		tagNr = Integer.parseInt(datumStr[0]); 
@@ -26,31 +28,42 @@ public class Event
 			jahresZahl = Integer.parseInt(datumStr[2]);
 		
 		this.event = event;
+		this.veranstaltung = veranstaltung;
+		this.raum = new Raum();
+		this.wochenTag = wochenTag;
 		this.anfang = LocalTime.parse(anfang,DateTimeFormatter.ISO_TIME); 
 		this.ende = LocalTime.parse(ende,DateTimeFormatter.ISO_TIME);
 	}
 	
-	public Event(String event, Raum raum, int tagNr, int monatNr, int jahresZahl, String anfang, String ende) 
+	public Event(String event, Raum raum, boolean veranstaltung, int tagNr, int monatNr, int jahresZahl, String wochenTag, String anfang, String ende) 
 	{
 		this.event = event;
 		this.raum = raum;
+		this.veranstaltung = veranstaltung;
 		this.tagNr = tagNr;
 		this.monatNr = monatNr;
 		this.jahresZahl = jahresZahl;
+		this.wochenTag = wochenTag;
 		this.anfang = LocalTime.parse(anfang,DateTimeFormatter.ISO_TIME); 
 		this.ende = LocalTime.parse(ende,DateTimeFormatter.ISO_TIME); 
 	}
-	public Event(String event, int tagNr, int monatNr, int jahresZahl, String anfang, String ende) 
+	public Event(String event, boolean veranstaltung, int tagNr, int monatNr, int jahresZahl, String wochenTag, String anfang, String ende) 
 	{
 		this.event = event;
+		this.raum = new Raum();
+		this.veranstaltung = veranstaltung;
 		this.tagNr = tagNr;
 		this.monatNr = monatNr;
 		this.jahresZahl = jahresZahl;
+		this.wochenTag = wochenTag;
 		this.anfang = LocalTime.parse(anfang,DateTimeFormatter.ISO_TIME); 
 		this.ende = LocalTime.parse(ende,DateTimeFormatter.ISO_TIME); 
 	}
-
-
+	
+	public Event()
+	{
+		
+	}
 	
 	public String getEvent() {
 		return event;
@@ -66,6 +79,23 @@ public class Event
 
 	public void setRaum(Raum raum) {
 		this.raum = raum;
+	}
+
+	
+	public boolean isVeranstaltung() {
+		return veranstaltung;
+	}
+
+	public void setVeranstaltung(boolean veranstaltung) {
+		this.veranstaltung = veranstaltung;
+	}
+
+	public String getWochenTag() {
+		return wochenTag;
+	}
+
+	public void setWochenTag(String wochenTag) {
+		this.wochenTag = wochenTag;
 	}
 
 	public LocalTime getAnfang() {
@@ -84,15 +114,39 @@ public class Event
 		this.ende = LocalTime.parse(ende,DateTimeFormatter.ISO_TIME);
 	}
 	
+	//String zum Schreiben des events in die Datei
 	public String schreibeEvent()
 	{
-		String ausgabe = this.event + "," + this.tagNr + "," + this.monatNr + "," + this.jahresZahl + "," + this.anfang + "," + this.ende + "," + this.raum.getBezeichnung() + ";";
+		String ausgabe = this.event + "," + this.veranstaltung + "," + this.anfang + "," + this.ende + "," + this.raum.getBezeichnung() + ";";
 		return ausgabe;
 	}
 	
+	//String zur Ausgabe des Events
 	public String ausgabeEvent()
 	{
-		String ausgabe = this.event + ": " + this.anfang + "-" + this.ende + ", Ort " + this.raum.getBezeichnung() + ";";
+		String ausgabe = "";
+		
+		if (this.veranstaltung == false)
+			ausgabe = this.event + ": " + this.anfang + "-" + this.ende + " Uhr; Ort: " + this.raum.getBezeichnung() + " | ";
+		
+		else
+			ausgabe ="---" +this.event + ": " + this.anfang + "-" + this.ende + " Uhr; Ort: " + this.raum.getBezeichnung() + "--- | ";
+		
+		return ausgabe;
+	}
+	
+	public String ausgabeEventMitDatum()
+	{
+		String ausgabe ="";
+		if ((this.tagNr < 10) && (this.monatNr < 10))
+			ausgabe =wochenTag  + " 0" + this.tagNr + ".0" + this.monatNr + ": " + this.event + ": " + this.anfang + "-" + this.ende + ", Ort " + this.raum.getBezeichnung() + "; ";
+		else if ((this.tagNr > 10) && (this.monatNr < 10))
+			ausgabe =wochenTag  + " " + this.tagNr + ".0" + this.monatNr + ": " + this.event + ": " + this.anfang + "-" + this.ende + ", Ort " + this.raum.getBezeichnung() + "; ";
+		else if ((this.tagNr > 10) && (this.monatNr > 10))
+			ausgabe =wochenTag  + " " + this.tagNr + "." + this.monatNr + ": " + this.event + ": " + this.anfang + "-" + this.ende + ", Ort " + this.raum.getBezeichnung() + "; ";
+		else if ((this.tagNr < 10) && (this.monatNr > 10))
+			ausgabe =wochenTag  + " 0" + this.tagNr + "." + this.monatNr + ": " + this.event + ": " + this.anfang + "-" + this.ende + ", Ort " + this.raum.getBezeichnung() + "; ";
+
 		return ausgabe;
 	}
 	

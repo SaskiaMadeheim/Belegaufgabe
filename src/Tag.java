@@ -1,3 +1,4 @@
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class Tag 
@@ -16,13 +17,6 @@ public class Tag
 		this.monatNr = monatNr;
 		this.jahrNr = jahrNr;
 		
-	}
-	public ArrayList<Event> getEvent() {
-		return events;
-	}
-	
-	public void setEvent(ArrayList<Event> events) {
-		this.events = events;
 	}
 	public String getWochenTag() {
 		return wochenTag;
@@ -53,6 +47,30 @@ public class Tag
 	}
 	public void setJahrNr(int jahrNr) {
 		this.jahrNr = jahrNr;
+	}
+	
+	public void sortEvents()
+	{
+		boolean flag = false;
+		do
+		{	
+			flag = true;
+			for (int i = 0; i < events.size()-1; i++)
+			{
+				LocalTime anfang1 = events.get(i).getAnfang();
+				LocalTime anfang2 = events.get(i+1).getAnfang();
+				
+				if(anfang1.isAfter(anfang2))
+				{
+					flag = false;
+					Event h = events.get(i);
+					events.set(i, events.get(i+1));
+					events.set(i+1, h);
+				}
+			
+			}
+		}
+		while (!flag);
 	}
 
 }
