@@ -144,11 +144,16 @@ public class FinanzPage extends JFrame{
 						public void actionPerformed(ActionEvent e) {
 							if (e.getSource() == hinzufuegen)
 							{
-								Finanzbewegung bewegung = new Finanzbewegung();
+								/*Finanzbewegung bewegung = new Finanzbewegung();
 								bewegung.setName(nameIn.getText());
 								bewegung.setDatumSt(datumIn.getText());
 								bewegung.setAbteilung(abteilungIn.getText());
-								bewegung.setBetrag(Double.parseDouble(betragIn.getText()));
+								bewegung.setBetrag(Double.parseDouble(betragIn.getText()));*/
+								
+								Finanzbewegung bewegung = new Finanzbewegung(nameIn.getText(), 
+										datumIn.getText(), 
+										Double.parseDouble(betragIn.getText()), 
+										abteilungIn.getText());
 								
 								model.hinzufFinanzbewegung(bewegung);
 								
