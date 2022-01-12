@@ -129,11 +129,23 @@ public class Kassenbuch extends Finanzdaten
 		duenneStriche(zaehleAus(), 5, 10, workbook, tab);
 		
 		// Dicke Striche einfuegen
-		for (int i = 8; i<(8+n); i++)
+		if (zaehleEin() >= zaehleAus())
 		{
-			CellStyle cellStyle = workbook.createCellStyle();
-			borderStyleLeft(cellStyle);
-			/*tab.getRow(i).getCell(5).setCellStyle(cellStyle);*/
+			for (int i = 8; i<(8+zaehleEin()); i++)
+			{
+				CellStyle cellStyle = workbook.createCellStyle();
+				borderStyleRight(cellStyle);
+				tab.getRow(i).getCell(4).setCellStyle(cellStyle);
+			}
+		}
+		else
+		{
+			for (int i = 8; i<(8+zaehleAus()); i++)
+			{
+				CellStyle cellStyle = workbook.createCellStyle();
+				borderStyleLeft(cellStyle);
+				tab.getRow(i).getCell(5).setCellStyle(cellStyle);
+			}
 		}
 		borderStyleLeft(zeile7.getCell(5).getCellStyle());
 		borderStyleLeft(zeile8.getCell(5).getCellStyle());
@@ -197,6 +209,18 @@ public class Kassenbuch extends Finanzdaten
 		style.setBorderRight(BorderStyle.THIN);
 		style.setRightBorderColor(IndexedColors.BLACK.getIndex());
 		style.setBorderLeft(BorderStyle.THICK);
+		style.setLeftBorderColor(IndexedColors.BLACK.getIndex());
+		style.setBorderTop(BorderStyle.THIN);
+		style.setTopBorderColor(IndexedColors.BLACK.getIndex());
+	}
+	
+	public void borderStyleRight(CellStyle style)
+	{
+		style.setBorderBottom(BorderStyle.THIN);
+		style.setBottomBorderColor(IndexedColors.BLACK.getIndex());
+		style.setBorderRight(BorderStyle.THICK);
+		style.setRightBorderColor(IndexedColors.BLACK.getIndex());
+		style.setBorderLeft(BorderStyle.THIN);
 		style.setLeftBorderColor(IndexedColors.BLACK.getIndex());
 		style.setBorderTop(BorderStyle.THIN);
 		style.setTopBorderColor(IndexedColors.BLACK.getIndex());
