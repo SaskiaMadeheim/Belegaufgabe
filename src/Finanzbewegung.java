@@ -56,9 +56,14 @@ public class Finanzbewegung
 		this.name = name;
 	}
 	
-	public void setDatum(LocalDate datum)
+	public void setDatumLD(LocalDate datum)
 	{
 		this.datum = datum;
+	}
+	
+	public void setDatumSt(String datum)
+	{
+		this.datum = LocalDate.parse(datum);
 	}
 	
 	public void setBetrag(double betrag)
