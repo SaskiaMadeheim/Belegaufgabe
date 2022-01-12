@@ -82,9 +82,13 @@ public class Finanzdaten
 		return kontobew;
 	}
 	
-	public void setKontobew(ArrayList<Finanzbewegung> kontobew)
+	public void setKontobew(ArrayList<Finanzbewegung> kontobew) throws FileNotFoundException
 	{
-		this.kontobew = kontobew;
+		/*this.kontobew = kontobew;*/
+		for(Finanzbewegung f: kontobew)
+		{
+			newFinanzBewegung(f);
+		}
 	}
 	
 	//Kontobewegung hinzufuegen

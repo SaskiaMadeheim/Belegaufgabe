@@ -6,40 +6,14 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="Apache_POI/apache-log4j-2.0-bin/log4j-1.2-api-2.0.jar"/>
-	<classpathentry kind="lib" path="Apache_POI/apache-log4j-2.0-bin/log4j-1.2-api-2.0-javadoc.jar"/>
-	<classpathentry kind="lib" path="Apache_POI/apache-log4j-2.0-bin/log4j-1.2-api-2.0-sources.jar"/>
-	<classpathentry kind="lib" path="Apache_POI/apache-log4j-2.0-bin/log4j-api-2.0.jar"/>
-	<classpathentry kind="lib" path="Apache_POI/apache-log4j-2.0-bin/log4j-api-2.0-javadoc.jar"/>
-	<classpathentry kind="lib" path="Apache_POI/apache-log4j-2.0-bin/log4j-api-2.0-sources.jar"/>
-	<classpathentry kind="lib" path="Apache_POI/apache-log4j-2.0-bin/log4j-core-2.0.jar"/>
-	<classpathentry kind="lib" path="Apache_POI/apache-log4j-2.0-bin/log4j-core-2.0-javadoc.jar"/>
-	<classpathentry kind="lib" path="Apache_POI/apache-log4j-2.0-bin/log4j-core-2.0-sources.jar"/>
-	<classpathentry kind="lib" path="Apache_POI/apache-log4j-2.0-bin/log4j-core-2.0-tests.jar"/>
-	<classpathentry kind="lib" path="Apache_POI/apache-log4j-2.0-bin/log4j-flume-ng-2.0.jar"/>
-	<classpathentry kind="lib" path="Apache_POI/apache-log4j-2.0-bin/log4j-flume-ng-2.0-javadoc.jar"/>
-	<classpathentry kind="lib" path="Apache_POI/apache-log4j-2.0-bin/log4j-flume-ng-2.0-sources.jar"/>
-	<classpathentry kind="lib" path="Apache_POI/apache-log4j-2.0-bin/log4j-jcl-2.0.jar"/>
-	<classpathentry kind="lib" path="Apache_POI/apache-log4j-2.0-bin/log4j-jcl-2.0-javadoc.jar"/>
-	<classpathentry kind="lib" path="Apache_POI/apache-log4j-2.0-bin/log4j-jcl-2.0-sources.jar"/>
-	<classpathentry kind="lib" path="Apache_POI/apache-log4j-2.0-bin/log4j-jmx-gui-2.0.jar"/>
-	<classpathentry kind="lib" path="Apache_POI/apache-log4j-2.0-bin/log4j-jmx-gui-2.0-javadoc.jar"/>
-	<classpathentry kind="lib" path="Apache_POI/apache-log4j-2.0-bin/log4j-jmx-gui-2.0-sources.jar"/>
-	<classpathentry kind="lib" path="Apache_POI/apache-log4j-2.0-bin/log4j-nosql-2.0.jar"/>
-	<classpathentry kind="lib" path="Apache_POI/apache-log4j-2.0-bin/log4j-nosql-2.0-javadoc.jar"/>
-	<classpathentry kind="lib" path="Apache_POI/apache-log4j-2.0-bin/log4j-nosql-2.0-sources.jar"/>
-	<classpathentry kind="lib" path="Apache_POI/apache-log4j-2.0-bin/log4j-slf4j-impl-2.0.jar"/>
-	<classpathentry kind="lib" path="Apache_POI/apache-log4j-2.0-bin/log4j-slf4j-impl-2.0-javadoc.jar"/>
-	<classpathentry kind="lib" path="Apache_POI/apache-log4j-2.0-bin/log4j-slf4j-impl-2.0-sources.jar"/>
-	<classpathentry kind="lib" path="Apache_POI/apache-log4j-2.0-bin/log4j-taglib-2.0.jar"/>
-	<classpathentry kind="lib" path="Apache_POI/apache-log4j-2.0-bin/log4j-taglib-2.0-javadoc.jar"/>
-	<classpathentry kind="lib" path="Apache_POI/apache-log4j-2.0-bin/log4j-taglib-2.0-sources.jar"/>
-	<classpathentry kind="lib" path="Apache_POI/apache-log4j-2.0-bin/log4j-to-slf4j-2.0.jar"/>
-	<classpathentry kind="lib" path="Apache_POI/apache-log4j-2.0-bin/log4j-to-slf4j-2.0-javadoc.jar"/>
-	<classpathentry kind="lib" path="Apache_POI/apache-log4j-2.0-bin/log4j-to-slf4j-2.0-sources.jar"/>
-	<classpathentry kind="lib" path="Apache_POI/apache-log4j-2.0-bin/log4j-web-2.0.jar"/>
-	<classpathentry kind="lib" path="Apache_POI/apache-log4j-2.0-bin/log4j-web-2.0-javadoc.jar"/>
-	<classpathentry kind="lib" path="Apache_POI/apache-log4j-2.0-bin/log4j-web-2.0-sources.jar"/>
+	<classpathentry kind="lib" path="Apache_POI/poi-bin-5.1.0/poi-5.1.0.jar"/>
+	<classpathentry kind="lib" path="Apache_POI/poi-bin-5.1.0/poi-examples-5.1.0.jar"/>
+	<classpathentry kind="lib" path="Apache_POI/poi-bin-5.1.0/poi-excelant-5.1.0.jar"/>
+	<classpathentry kind="lib" path="Apache_POI/poi-bin-5.1.0/poi-javadoc-5.1.0.jar"/>
+	<classpathentry kind="lib" path="Apache_POI/poi-bin-5.1.0/poi-ooxml-5.1.0.jar"/>
+	<classpathentry kind="lib" path="Apache_POI/poi-bin-5.1.0/poi-ooxml-full-5.1.0.jar"/>
+	<classpathentry kind="lib" path="Apache_POI/poi-bin-5.1.0/poi-ooxml-lite-5.1.0.jar"/>
+	<classpathentry kind="lib" path="Apache_POI/poi-bin-5.1.0/poi-scratchpad-5.1.0.jar"/>
 	<classpathentry kind="lib" path="Apache_POI/poi-bin-5.1.0/auxiliary/batik-anim-1.14.jar"/>
 	<classpathentry kind="lib" path="Apache_POI/poi-bin-5.1.0/auxiliary/batik-awt-util-1.14.jar"/>
 	<classpathentry kind="lib" path="Apache_POI/poi-bin-5.1.0/auxiliary/batik-bridge-1.14.jar"/>
@@ -80,14 +54,5 @@
 	<classpathentry kind="lib" path="Apache_POI/poi-bin-5.1.0/ooxml-lib/curvesapi-1.06.jar"/>
 	<classpathentry kind="lib" path="Apache_POI/poi-bin-5.1.0/ooxml-lib/slf4j-api-1.7.32.jar"/>
 	<classpathentry kind="lib" path="Apache_POI/poi-bin-5.1.0/ooxml-lib/xmlbeans-5.0.2.jar"/>
-	<classpathentry kind="lib" path="Apache_POI/poi-bin-5.1.0/poi-5.1.0.jar"/>
-	<classpathentry kind="lib" path="Apache_POI/poi-bin-5.1.0/poi-examples-5.1.0.jar"/>
-	<classpathentry kind="lib" path="Apache_POI/poi-bin-5.1.0/poi-excelant-5.1.0.jar"/>
-	<classpathentry kind="lib" path="Apache_POI/poi-bin-5.1.0/poi-javadoc-5.1.0.jar"/>
-	<classpathentry kind="lib" path="Apache_POI/poi-bin-5.1.0/poi-ooxml-5.1.0.jar"/>
-	<classpathentry kind="lib" path="Apache_POI/poi-bin-5.1.0/poi-ooxml-full-5.1.0.jar"/>
-	<classpathentry kind="lib" path="Apache_POI/poi-bin-5.1.0/poi-ooxml-lite-5.1.0.jar"/>
-	<classpathentry kind="lib" path="Apache_POI/poi-bin-5.1.0/poi-scratchpad-5.1.0.jar"/>
-	<classpathentry kind="lib" path="Apache_POI/log4j-core-1.2.0.3-jre17-rc1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

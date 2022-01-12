@@ -133,7 +133,7 @@ public class Kassenbuch extends Finanzdaten
 		{
 			CellStyle cellStyle = workbook.createCellStyle();
 			borderStyleLeft(cellStyle);
-			tab.getRow(i).getCell(5).setCellStyle(cellStyle);
+			/*tab.getRow(i).getCell(5).setCellStyle(cellStyle);*/
 		}
 		borderStyleLeft(zeile7.getCell(5).getCellStyle());
 		borderStyleLeft(zeile8.getCell(5).getCellStyle());
