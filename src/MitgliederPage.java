@@ -184,21 +184,21 @@ public class MitgliederPage extends JFrame{
 							String adresse = adresseIn.getText();
 							String email = emailIn.getText();
 							int geburtsjahr = Integer.parseInt(geburtsjahrIn.getText());
-							int abteilung = Integer.parseInt(abteilungIn.getText());
+							Abteilung abteilung = Integer.parseInt(abteilungIn.getText());
 							
 							if(artWahl.equals("Erwachsener"))
 							{
-								Erwachsener erw = new Erwachsener(name, adresse, email, geburtsjahr, abteilung, 1);
+								Erwachsener erw = new Erwachsener(name, adresse, email, geburtsjahr, abteilung);
 							}
 							
 							if(artWahl.equals("Kind"))
 							{
-								Kind kind = new Kind(name, adresse, email, geburtsjahr, abteilung, 1);
+								Kind kind = new Kind(name, adresse, email, geburtsjahr, abteilung);
 							}
 							
 							if(artWahl.equals("Student"))
 							{
-								Student stud = new Student(name, adresse, email, geburtsjahr, abteilung, 1);
+								Student stud = new Student(name, adresse, email, geburtsjahr, abteilung);
 							}
 							
 							addFenster.dispose();

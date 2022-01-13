@@ -4,34 +4,20 @@ public class Mitglied
 	public String adresse;
 	public String email;
 	public int geburtsjahr;
-	public int abteilung;
-	public boolean student;
-	private static int mitgliederanzahl;
+	public Abteilung abteilung;
 		
-	public Mitglied(String[] name, String adresse, String email, int geburtsjahr, int abteilung, boolean student, int mitgliederanzahl) 
+	public Mitglied(String[] name, String adresse, String email, int geburtsjahr, Abteilung abteilung) 
 	{
 		this.name = name;
 		this.adresse = adresse;
 		this.email = email;
 		this.geburtsjahr = geburtsjahr;
 		this.abteilung = abteilung;
-		this.student = student;
-		mitgliederanzahl += mitgliederanzahl;
-	}
-
-	public static int getMitgliederanzahl() 
-	{
-		return mitgliederanzahl;
 	}
 
 	public String[] getName() 
 	{
 		return name;
-	}
-
-	public void setName(String[] name) 
-	{
-		this.name = name;
 	}
 
 	public String getAdresse() 
@@ -59,34 +45,14 @@ public class Mitglied
 		return geburtsjahr;
 	}
 
-	public void setGeburtsjahr(int geburtsjahr) 
-	{
-		this.geburtsjahr = geburtsjahr;
-	}
-
-	public int getAbteilung() 
+	public Abteilung getAbteilung() 
 	{
 		return abteilung;
 	}
 
-	public void setAbteilung(int abteilung) 
-	{
-		this.abteilung = abteilung;
-	}
-
-	public boolean istStudent() 
-	{
-		return student;
-	}
-
-	public void setStudent(boolean student) 
-	{
-		this.student = student;
-	}
-
 	public String getInfo()
 	{
-		return name[0] + " " +  name[1] + ", " + adresse + " " + email + " Abteilung: " + abteilung + ", Beitrag: " + getBeitrag() + " Euro im Quartal";
+		return name[0] + " " +  name[1] + ", " + adresse + ", " + email + ", Abteilung: " + abteilung + ", Beitrag: " + getBeitrag() + " Euro im Quartal";
 	}
 
 	public double getBeitrag()
