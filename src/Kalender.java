@@ -179,7 +179,7 @@ public class Kalender
 		}
 		
 		if (eventEntfernt)
-			System.out.printf("%s von %s bis %s Uhr wurde erfolgreich für das Jahr %d entfernt\n", eventStr, event.getAnfang(), event.getEnde(), jahresZahl);
+			System.out.printf("%s von %s bis %s Uhr wurde erfolgreich fï¿½r das Jahr %d entfernt\n", eventStr, event.getAnfang(), event.getEnde(), jahresZahl);
 		
 		else 
 			System.out.printf("Keine Uebereinstimmung mit  \"%s\" im Jahr %d gefunden; bitte Angaben ueberpruefen\n", eventStr, jahresZahl);
@@ -214,7 +214,7 @@ public class Kalender
 		
 		
 		if (eventEntfernt)
-			System.out.printf("%s von %s bis %s Uhr wurde erfolgreich für den Monat %s im  Jahr %d entfernt\n", eventStr, event.getAnfang(), event.getEnde(), monat.getJahresMonat(), jahresZahl);
+			System.out.printf("%s von %s bis %s Uhr wurde erfolgreich fï¿½r den Monat %s im  Jahr %d entfernt\n", eventStr, event.getAnfang(), event.getEnde(), monat.getJahresMonat(), jahresZahl);
 		
 		else 
 			System.out.printf("Keine Uebereinstimmung mit  \"%s\" im Monat %s Jahr %d gefunden; bitte Angaben ueberpruefen\n", eventStr, monat.getJahresMonat(), jahresZahl);
@@ -250,7 +250,7 @@ public class Kalender
 		Kalender kalender = new Kalender();
 		kalender.leseKalender();
 		
-		PrintWriter aus = new PrintWriter("Eventliste.txt");
+		//PrintWriter aus = new PrintWriter("Eventliste.txt");
 		
 		Jahr jahr = kalender.getKalender().get(jahresZahl-2021);
 	
@@ -263,7 +263,8 @@ public class Kalender
 				for (Event event : tag.getEvents())
 				{
 					if (event.isVeranstaltung() == true)
-						aus.printf(" %s \n", event.ausgabeEventMitDatum());
+						System.out.printf(" %s \n", event.ausgabeEventMitDatum());
+						
 				}
 			}
 		}

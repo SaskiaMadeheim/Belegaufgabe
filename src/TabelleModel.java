@@ -46,7 +46,7 @@ public class TabelleModel implements TableModel{
 			case 0: return finanzbewegung.getDatumSt();
 			case 1: return finanzbewegung.getName();
 			case 2: return finanzbewegung.getAbteilung();
-			case 3: return new Double(finanzbewegung.getBetrag()); 
+			case 3: return String.format("%.2f",(finanzbewegung.getBetrag())); 
 			default: return null;
 		}
 	}
@@ -56,7 +56,7 @@ public class TabelleModel implements TableModel{
 			case 0: return Integer.class;
 			case 1: return String.class;
 			case 2: return String.class;
-			case 3: return Double.class; 
+			case 3: return String.class; 
 			default: return null;
 		}	
 	}

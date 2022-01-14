@@ -55,7 +55,7 @@ public class DiagrammFinanz extends JPanel
 
         for (Bar bar: bars)
         {
-            JLabel label = new JLabel(bar.getValue() + "");
+            JLabel label = new JLabel(String.format("%.2f", bar.getValue()));
             label.setHorizontalTextPosition(JLabel.CENTER);
             label.setHorizontalAlignment(JLabel.CENTER);
             label.setVerticalTextPosition(JLabel.TOP);

@@ -253,7 +253,7 @@ public class MitgliederPage extends JFrame{
 		fenster.add(rechteSeite);
 		
 		fenster.setIconImage(bild.getImage());
-		fenster.setTitle("Finanzverwaltung");
+		fenster.setTitle("Mitgliederverwaltung");
 		fenster.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		fenster.setSize(1280,720);
 		fenster.setResizable(true);

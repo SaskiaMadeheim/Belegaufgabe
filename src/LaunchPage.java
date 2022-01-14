@@ -23,7 +23,7 @@ public class LaunchPage extends JFrame{
 	//Instanzvariablen
 	private JFrame fenster;
 	private JButton mitgliederverwaltung;
-	private JButton hallenbelegung;
+	private JButton kalender;
 	private JButton finanzen;
 	
 	public LaunchPage()
@@ -62,21 +62,26 @@ public class LaunchPage extends JFrame{
 				
 			}
 		});;
-		hallenbelegung = new JButton("Hallenbelegung");
-		hallenbelegung.setFocusable(false);
-		hallenbelegung.setBounds(50, 160, 220, 100);
-		hallenbelegung.setBackground(new Color(47,85,178));
-		hallenbelegung.setBorder(buttonBoder);
-		hallenbelegung.setForeground(new Color(255,255,255));
-		hallenbelegung.setFont(new Font("Arial", Font.PLAIN, 20));
-		hallenbelegung.addActionListener(new ActionListener() {
+		kalender = new JButton("Kalender");
+		kalender.setFocusable(false);
+		kalender.setBounds(50, 160, 220, 100);
+		kalender.setBackground(new Color(47,85,178));
+		kalender.setBorder(buttonBoder);
+		kalender.setForeground(new Color(255,255,255));
+		kalender.setFont(new Font("Arial", Font.PLAIN, 20));
+		kalender.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(e.getSource() == hallenbelegung)
+				if(e.getSource() == kalender)
 				{
 					fenster.dispose();
-					System.out.println("Hallenbelegung");
+					try {
+						KalenderPage kp = new KalenderPage();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 				
 			}
@@ -182,7 +187,7 @@ public class LaunchPage extends JFrame{
 		linkesPanel.setPreferredSize(new Dimension(320, 520));
 		
 		linkesPanel.add(mitgliederverwaltung);
-		linkesPanel.add(hallenbelegung);
+		linkesPanel.add(kalender);
 		linkesPanel.add(finanzen);
 		linkesPanel.setVisible(true);
 		

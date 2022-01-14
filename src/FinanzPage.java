@@ -24,6 +24,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
+import javax.swing.table.DefaultTableCellRenderer;
 
 @SuppressWarnings("serial")
 public class FinanzPage extends JFrame{
@@ -33,6 +34,11 @@ public class FinanzPage extends JFrame{
 		Finanzdaten finanzdaten = new Finanzdaten("dat.csv");
 		ArrayList<Finanzbewegung> einlesen = finanzdaten.leseCSV("dat.csv");
 		finanzdaten.setKontobew(einlesen);
+		
+		JLabel gesamtzahl = new JLabel();
+		JLabel einnahmenBetrag = new JLabel();
+		JLabel ausgabenBetrag = new JLabel();
+		JLabel differenzBetrag = new JLabel();
 		
 		ImageIcon bild = new ImageIcon("logo.png");
 		Border buttonBoder = BorderFactory.createLineBorder(new Color(47,85,178), 3);
@@ -61,6 +67,10 @@ public class FinanzPage extends JFrame{
 		
 		tabelle.getColumnModel().getColumn(0).setPreferredWidth(110);
 		tabelle.getColumnModel().getColumn(1).setPreferredWidth(110);
+		
+		DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+		rightRenderer.setHorizontalAlignment(DefaultTableCellRenderer.RIGHT);
+		tabelle.getColumn("Betrag").setCellRenderer(rightRenderer);
 		
 		tabelle.getTableHeader().setBackground(new Color(47,85,178));
 		tabelle.getTableHeader().setForeground(new Color(255,255,255));
@@ -164,6 +174,18 @@ public class FinanzPage extends JFrame{
 									e1.printStackTrace();
 								}
 								addFenster.dispose();
+								
+								gesamtzahl.setText("Gesamtzahl der Buchungen: " + finanzdaten.getKontobew().size());
+								einnahmenBetrag.setText(String.format("%.2f",finanzdaten.getJaehrlEinnahmen()));
+								ausgabenBetrag.setText(String.format("%.2f",finanzdaten.getJaehrlAusgaben()));
+								
+								fenster.dispose();
+								try {
+									FinanzPage fp = new FinanzPage();
+								} catch (FileNotFoundException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
 							}
 							
 						}
@@ -214,12 +236,7 @@ public class FinanzPage extends JFrame{
 			}
 		});
 		
-		ImageIcon statistik = new ImageIcon("Einnahmen_Ausgaben.jpg");
-		JLabel stat = new JLabel();
-		stat.setIcon(statistik);
-		stat.setPreferredSize(new Dimension(640,420));
-		stat.setBackground(new Color(255,255,255));
-		
+		//update nach hinzufuegen leider nicht moeglich
 		DiagrammFinanz diagramm = new DiagrammFinanz();
 		JPanel panelDiagramm = diagramm.createAndShowGUI(finanzdaten.getJaehrlEinnahmen(), finanzdaten.getJaehrlAusgaben());
 		
@@ -242,10 +259,9 @@ public class FinanzPage extends JFrame{
 		einnahmen.setFont(new Font("Arial", Font.PLAIN, 18));
 		einnahmen.setBorder(BorderFactory.createMatteBorder(1, 0, 0,0 , new Color(47,85,178)));
 		
-		JLabel einnahmenBetrag = new JLabel();
 		einnahmenBetrag.setForeground(new Color(47,85,178));
 		einnahmenBetrag.setFont(new Font("Arial", Font.PLAIN, 18));
-		einnahmenBetrag.setText(finanzdaten.getJaehrlEinnahmen()+ "");
+		einnahmenBetrag.setText(String.format("%.2f",finanzdaten.getJaehrlEinnahmen()));
 		einnahmenBetrag.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, new Color(47,85,178)));
 		einnahmenBetrag.setHorizontalAlignment(JLabel.RIGHT);
 		
@@ -254,10 +270,9 @@ public class FinanzPage extends JFrame{
 		ausgabe.setFont(new Font("Arial", Font.PLAIN, 18));
 		ausgabe.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, new Color(47,85,178)));
 		
-		JLabel ausgabenBetrag = new JLabel();
 		ausgabenBetrag.setForeground(new Color(47,85,178));
 		ausgabenBetrag.setFont(new Font("Arial", Font.PLAIN, 18));
-		ausgabenBetrag.setText(finanzdaten.getJaehrlAusgaben() + "");
+		ausgabenBetrag.setText(String.format("%.2f",finanzdaten.getJaehrlAusgaben()));
 		ausgabenBetrag.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, new Color(47,85,178)));
 		ausgabenBetrag.setHorizontalAlignment(JLabel.RIGHT);
 		
@@ -266,10 +281,9 @@ public class FinanzPage extends JFrame{
 		differenz.setFont(new Font("Arial", Font.PLAIN, 18));
 		differenz.setBorder(BorderFactory.createMatteBorder(2, 0, 0, 0, new Color(47,85,178)));
 		
-		JLabel differenzBetrag = new JLabel();
 		differenzBetrag.setForeground(new Color(47,85,178));
 		differenzBetrag.setFont(new Font("Arial", Font.PLAIN, 18));
-		differenzBetrag.setText((finanzdaten.jaehrlEinnahmen-finanzdaten.jaehrlAusgaben) + "");
+		differenzBetrag.setText(String.format("%.2f", (finanzdaten.getJaehrlEinnahmen()-finanzdaten.getJaehrlAusgaben())));
 		differenzBetrag.setBorder(BorderFactory.createMatteBorder(2, 0, 0, 0, new Color(47,85,178)));
 		differenzBetrag.setHorizontalAlignment(JLabel.RIGHT);
 		
@@ -291,7 +305,8 @@ public class FinanzPage extends JFrame{
 		einAus.add(differenzBetrag);
 		
 		
-		JLabel gesamtzahl = new JLabel("Gesamtzahl der Buchungen: 23");
+		//JLabel gesamtzahl = new JLabel();
+		gesamtzahl.setText("Gesamtzahl der Buchungen: " + finanzdaten.getKontobew().size());
 		gesamtzahl.setPreferredSize(new Dimension(300,50));
 		gesamtzahl.setBackground(Color.white);
 		gesamtzahl.setForeground(new Color(47,85,178));

@@ -97,6 +97,20 @@ public class Event
 	public void setWochenTag(String wochenTag) {
 		this.wochenTag = wochenTag;
 	}
+	
+	public String getDatum() {
+		String ausgabe ="";
+		if ((this.tagNr < 10) && (this.monatNr < 10))
+			ausgabe ="0" + this.tagNr + ".0" + this.monatNr + "." + this.jahresZahl;
+		else if ((this.tagNr >= 10) && (this.monatNr < 10))
+			ausgabe =this.tagNr + ".0" + this.monatNr + "." + this.jahresZahl;
+		else if ((this.tagNr >= 10) && (this.monatNr >= 10))
+			ausgabe =this.tagNr + "." + this.monatNr + "." + this.jahresZahl;
+		else if ((this.tagNr < 10) && (this.monatNr >= 10))
+			ausgabe ="0" + this.tagNr + "." + this.monatNr + "." + this.jahresZahl;
+
+		return ausgabe;
+	}
 
 	public LocalTime getAnfang() {
 		return anfang;
