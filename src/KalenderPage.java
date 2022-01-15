@@ -76,6 +76,75 @@ public class KalenderPage extends JFrame{
 		linksOben.add(logoPanel);
 		linksOben.add(back);
 		
+		Kalender tableKalenderlinks = new Kalender();
+		tableKalenderlinks.leseKalender();
+		ArrayList<Event> eventsLinks = new ArrayList<Event>();
+		
+		Jahr jahrLinks = tableKalenderlinks.getKalender().get(Calendar.getInstance().get(Calendar.YEAR)-2021);
+		
+		for (Monat monatLinks : jahrLinks.getJahr())
+		{
+			for (Tag tagLinks : monatLinks.getMonat())
+			{
+				for (Event eventLinks : tagLinks.getEvents())
+				{
+					if (eventLinks.isVeranstaltung() == false)
+						eventsLinks.add(eventLinks);
+				}
+			}
+		}
+		
+		final KalenderTabelleModel modelLinks = new KalenderTabelleModel();
+		for(Event e : eventsLinks)
+		{
+			modelLinks.hinzufKalender(e);
+		}
+		
+		
+		JTable tabelleLinks = new JTable();
+		tabelleLinks.setModel(modelLinks);
+		tabelleLinks.setBackground(new Color(255,255,255));
+		tabelleLinks.setForeground(new Color(47,85,178));
+		tabelleLinks.setFont(new Font("Arial", Font.PLAIN, 18));
+		tabelleLinks.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		//tabelleLinks.setPreferredSize(new Dimension(600,1000));
+		//tabelleLinks.setBorder(BorderFactory.createMatteBorder(0, 3, 3, 3, new Color(47,85,178)));
+		tabelleLinks.setShowGrid(true);
+		tabelleLinks.setGridColor(new Color(47,85,178));
+		tabelleLinks.setRowHeight(30);
+		tabelleLinks.setIntercellSpacing(new Dimension(7,0));
+		tabelleLinks.setFocusable(false);
+		
+		tabelleLinks.getColumnModel().getColumn(0).setPreferredWidth(20);
+		tabelleLinks.getColumnModel().getColumn(1).setPreferredWidth(60);
+		tabelleLinks.getColumnModel().getColumn(2).setPreferredWidth(140);
+		tabelleLinks.getColumnModel().getColumn(3).setPreferredWidth(20);
+		tabelleLinks.getColumnModel().getColumn(4).setPreferredWidth(20);
+		tabelleLinks.getColumnModel().getColumn(5).setPreferredWidth(50);
+		
+		DefaultTableCellRenderer rightRendererLinks = new DefaultTableCellRenderer();
+		rightRendererLinks.setHorizontalAlignment(DefaultTableCellRenderer.RIGHT);
+		tabelleLinks.getColumn("Datum").setCellRenderer(rightRendererLinks);
+		tabelleLinks.getColumn("Start").setCellRenderer(rightRendererLinks);
+		tabelleLinks.getColumn("Ende").setCellRenderer(rightRendererLinks);
+		
+		tabelleLinks.getTableHeader().setBackground(new Color(47,85,178));
+		tabelleLinks.getTableHeader().setForeground(new Color(255,255,255));
+		tabelleLinks.getTableHeader().setFont(new Font("Arial", Font.PLAIN, 18));
+		tabelleLinks.getTableHeader().setOpaque(false);
+		
+		JScrollPane scrollLinks = new JScrollPane(tabelleLinks);
+		scrollLinks.setPreferredSize(new Dimension(600,520));
+		scrollLinks.setBackground(new Color(47,85,178));
+		
+
+		
+		JPanel linksUnten = new JPanel();
+		linksUnten.setLayout(new BorderLayout());
+		linksUnten.setBackground(Color.white);
+		linksUnten.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+		linksUnten.add(scrollLinks, BorderLayout.CENTER);
+		
 		JPanel linkeSeite = new JPanel();
 		linkeSeite.setBackground(new Color(255,255,255));
 		linkeSeite.setPreferredSize(new Dimension(640, 720));
@@ -83,6 +152,7 @@ public class KalenderPage extends JFrame{
 		linkeSeite.setLayout(new BorderLayout());
 		
 		linkeSeite.add(linksOben, BorderLayout.NORTH);
+		linkeSeite.add(linksUnten, BorderLayout.CENTER);
 		
 		Kalender tableKalender = new Kalender();
 		tableKalender.leseKalender();
