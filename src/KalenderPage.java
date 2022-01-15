@@ -257,13 +257,14 @@ public class KalenderPage extends JFrame{
 								e1.printStackTrace();
 							}
 							addFenster.dispose();						
-							fenster.dispose();
+
 							try {
 								KalenderPage kp = new KalenderPage();
 							} catch (IOException e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
 							}
+							fenster.dispose();
 							
 						}
 					});
@@ -395,6 +396,14 @@ public class KalenderPage extends JFrame{
 								e1.printStackTrace();
 							}
 							addFenster.dispose();
+						
+							try {
+								KalenderPage kp = new KalenderPage();
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							fenster.dispose();
 						}
 					});
 
@@ -483,6 +492,14 @@ public class KalenderPage extends JFrame{
 								e1.printStackTrace();
 							}
 							addFenster.dispose();
+							
+							try {
+								KalenderPage kp = new KalenderPage();
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							fenster.dispose();
 						}
 					});
 
@@ -571,6 +588,14 @@ public class KalenderPage extends JFrame{
 								e1.printStackTrace();
 							}
 							addFenster.dispose();
+							
+							try {
+								KalenderPage kp = new KalenderPage();
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							fenster.dispose();
 						}
 					});
 

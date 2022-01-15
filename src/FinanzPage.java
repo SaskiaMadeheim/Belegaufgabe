@@ -179,13 +179,13 @@ public class FinanzPage extends JFrame{
 								einnahmenBetrag.setText(String.format("%.2f",finanzdaten.getJaehrlEinnahmen()));
 								ausgabenBetrag.setText(String.format("%.2f",finanzdaten.getJaehrlAusgaben()));
 								
-								fenster.dispose();
 								try {
 									FinanzPage fp = new FinanzPage();
 								} catch (FileNotFoundException e1) {
 									// TODO Auto-generated catch block
 									e1.printStackTrace();
 								}
+								fenster.dispose();
 							}
 							
 						}
