@@ -4,20 +4,24 @@ import java.util.ArrayList;
 
 public class Mitgliederverwaltung 
 {
-	public static void main(String[] args)
+	public static void main(String[] args) throws IOException
 	{
 		ArrayList<Mitglied> mitglieder = new ArrayList<>();
 		Erwachsener m1 = new Erwachsener(new String[] {"Max", "Mustermann"}, "Teststraﬂe 1, 78532 Tuttlingen", "max.mustermann@hs-furtwangen.de", 1990, Abteilung.BASKETBALL);
+		Erwachsener m2 = new Erwachsener(new String[] {"Martina", "Mustermann"}, "Teststraﬂe 3, 78532 Tuttlingen", "martina.mustermann@hs-furtwangen.de", 1987, Abteilung.HANDBALL);
 		Kind k1 = new Kind(new String[] {"Matilda", "Mustermann"}, "Teststraﬂe 1, 78532 Tuttlingen", "matilda.musterman@hs-furtwangen.de", 2012, Abteilung.HANDBALL);
 		Student s1 = new Student(new String[] {"Mario", "Mustermann"}, "Teststraﬂe 2, 78532 Tuttlingen", "mario.mustermann@hs-furtwangen.de", 2000, Abteilung.FUﬂBALL);
 		
 		mitglieder.add(m1);
+		mitglieder.add(m2);
 		mitglieder.add(k1);
 		mitglieder.add(s1);
 				
 		/*System.out.println(SummeBeitr‰ge(mitglieder));
 		System.out.println(AnzahlMitglieder(mitglieder));
 		System.out.println(Mitgliederinfo(mitglieder));*/
+		
+		schreibeCSV("Mitgliederliste", mitglieder);
 		
 	}
 	
@@ -47,10 +51,11 @@ public class Mitgliederverwaltung
 		PrintWriter pW = new PrintWriter(dateiname);
 		for(Mitglied m : mitglieder)
 		{
-			pW.print(m.getName()[0] + "; " + m.getName()[1] + "; " + m.adresse + "; " + m.email + "; " + m.abteilung + "; " + m.getBeitrag() + "; ");
+			pW.print(m.getName()[0] + "; " + m.getName()[1] + "; " + m.adresse + "; " + m.email + "; " + m.abteilung + "; " + m.getClass().getSimpleName());
 			pW.print("\n");
 		}
 		
 		pW.close();
 	}
+       
 }
