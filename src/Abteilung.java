@@ -1,5 +1,5 @@
 
 public enum Abteilung 
 {
-	HANDBALL, FUßBALL, BASKETBALL;
+	HANDBALL, FUSSBALL, BASKETBALL;
 }

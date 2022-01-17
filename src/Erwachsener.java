@@ -14,7 +14,7 @@ public class Erwachsener extends Mitglied
 			return 60.0;
 		else if(abteilung == Abteilung.BASKETBALL)
 			return 75.0;
-		else if(abteilung == Abteilung.FUßBALL)
+		else if(abteilung == Abteilung.FUSSBALL)
 			return 80.0;
 		else
 			return 20.0;	

@@ -7,17 +7,17 @@ public class Mitgliederverwaltung
 	public static void main(String[] args) throws IOException
 	{
 		ArrayList<Mitglied> mitglieder = new ArrayList<>();
-		Erwachsener m1 = new Erwachsener(new String[] {"Max", "Mustermann"}, "Teststraße 1, 78532 Tuttlingen", "max.mustermann@hs-furtwangen.de", 1990, Abteilung.BASKETBALL);
-		Erwachsener m2 = new Erwachsener(new String[] {"Martina", "Mustermann"}, "Teststraße 3, 78532 Tuttlingen", "martina.mustermann@hs-furtwangen.de", 1987, Abteilung.HANDBALL);
-		Kind k1 = new Kind(new String[] {"Matilda", "Mustermann"}, "Teststraße 1, 78532 Tuttlingen", "matilda.musterman@hs-furtwangen.de", 2012, Abteilung.HANDBALL);
-		Student s1 = new Student(new String[] {"Mario", "Mustermann"}, "Teststraße 2, 78532 Tuttlingen", "mario.mustermann@hs-furtwangen.de", 2000, Abteilung.FUßBALL);
+		Erwachsener m1 = new Erwachsener(new String[] {"Max", "Mustermann"}, "Teststraï¿½e 1, 78532 Tuttlingen", "max.mustermann@hs-furtwangen.de", 1990, Abteilung.BASKETBALL);
+		Erwachsener m2 = new Erwachsener(new String[] {"Martina", "Mustermann"}, "Teststraï¿½e 3, 78532 Tuttlingen", "martina.mustermann@hs-furtwangen.de", 1987, Abteilung.HANDBALL);
+		Kind k1 = new Kind(new String[] {"Matilda", "Mustermann"}, "Teststraï¿½e 1, 78532 Tuttlingen", "matilda.musterman@hs-furtwangen.de", 2012, Abteilung.HANDBALL);
+		Student s1 = new Student(new String[] {"Mario", "Mustermann"}, "Teststraï¿½e 2, 78532 Tuttlingen", "mario.mustermann@hs-furtwangen.de", 2000, Abteilung.FUSSBALL);
 		
 		mitglieder.add(m1);
 		mitglieder.add(m2);
 		mitglieder.add(k1);
 		mitglieder.add(s1);
 				
-		/*System.out.println(SummeBeiträge(mitglieder));
+		/*System.out.println(SummeBeitrï¿½ge(mitglieder));
 		System.out.println(AnzahlMitglieder(mitglieder));
 		System.out.println(Mitgliederinfo(mitglieder));*/
 		
@@ -25,7 +25,7 @@ public class Mitgliederverwaltung
 		
 	}
 	
-	public static double SummeBeiträge(ArrayList<Mitglied> mitglieder)
+	public static double SummeBeitraege(ArrayList<Mitglied> mitglieder)
 	{
 		double summe = 0;
 		for(Mitglied m : mitglieder)

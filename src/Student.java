@@ -14,7 +14,7 @@ public class Student extends Mitglied
 			return 40.0;
 		else if(abteilung == Abteilung.BASKETBALL)
 			return 55.0;
-		else if(abteilung == Abteilung.FUßBALL)
+		else if(abteilung == Abteilung.FUSSBALL)
 			return 60.0;
 		else
 			return 20.0;	

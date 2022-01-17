@@ -14,7 +14,7 @@ public class Kind extends Mitglied
 			return 30.0;
 		else if(abteilung == Abteilung.BASKETBALL)
 			return 45.0;
-		else if(abteilung == Abteilung.FUßBALL)
+		else if(abteilung == Abteilung.FUSSBALL)
 			return 50.0;
 		else
 			return 20.0;	

@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -20,8 +21,10 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
+import javax.swing.table.DefaultTableCellRenderer;
 
 @SuppressWarnings("serial")
 public class MitgliederPage extends JFrame{
@@ -31,7 +34,7 @@ public class MitgliederPage extends JFrame{
 		Border buttonBoder = BorderFactory.createLineBorder(new Color(47,85,178), 3);
 		
 		JFrame fenster = new JFrame();
-		fenster.setLayout(new GridLayout());
+		fenster.setLayout(new BorderLayout());
 		
 		BufferedImage img = null;
 		try {
@@ -127,11 +130,12 @@ public class MitgliederPage extends JFrame{
 				geburtsjahrIn.setForeground(new Color(47,85,178));
 				geburtsjahrIn.setFont(new Font("Arial", Font.PLAIN, 16));
 				
-				JLabel abteilung = new JLabel("Abteilung (int):");
+				JLabel abteilung = new JLabel("Abteilung:");
 				abteilung.setForeground(new Color(47,85,178));
 				abteilung.setFont(new Font("Arial", Font.PLAIN, 18));
 				
-				JTextField abteilungIn = new JTextField();
+				String[] artenAbt = {"Handball", "Fussball", "Basketball"};
+				JComboBox abteilungIn = new JComboBox(artenAbt);
 				abteilungIn.setForeground(new Color(47,85,178));
 				abteilungIn.setFont(new Font("Arial", Font.PLAIN, 16));
 				
@@ -184,7 +188,15 @@ public class MitgliederPage extends JFrame{
 							String adresse = adresseIn.getText();
 							String email = emailIn.getText();
 							int geburtsjahr = Integer.parseInt(geburtsjahrIn.getText());
-							Abteilung abteilung = Integer.parseInt(abteilungIn.getText());
+							String abtWahl = (String) abteilungIn.getItemAt(abteilungIn.getSelectedIndex());
+							
+							Abteilung abteilung = Abteilung.HANDBALL;
+							
+							if(abtWahl.equals("Fussball"))
+								abteilung = abteilung.FUSSBALL;
+							
+							if(abtWahl.equals("Basketball"))
+								abteilung = abteilung.BASKETBALL;
 							
 							if(artWahl.equals("Erwachsener"))
 							{
@@ -247,10 +259,44 @@ public class MitgliederPage extends JFrame{
 		linkeSeite.add(linksOben);
 		linkeSeite.add(linksUnten);
 		
-		JPanel rechteSeite = new JPanel();
 		
-		fenster.add(linkeSeite);
-		fenster.add(rechteSeite);
+		ArrayList<Mitglied> mitglieder = new ArrayList<Mitglied>();
+		final MitgliedTabelleModel model = new MitgliedTabelleModel();
+		for(Mitglied m : mitglieder)
+		{
+			model.hinzufMitglied(m);
+		}
+		
+		JTable tabelle = new JTable(model);
+		tabelle.setBackground(new Color(255,255,255));
+		tabelle.setForeground(new Color(47,85,178));
+		tabelle.setFont(new Font("Arial", Font.PLAIN, 18));
+		tabelle.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		//tabelle.setPreferredSize(new Dimension(600,1000));
+		//tabelle.setBorder(BorderFactory.createMatteBorder(0, 3, 3, 3, new Color(47,85,178)));
+		tabelle.setShowGrid(true);
+		tabelle.setGridColor(new Color(47,85,178));
+		tabelle.setRowHeight(30);
+		tabelle.setIntercellSpacing(new Dimension(7,0));
+		tabelle.setFocusable(false);
+		
+		tabelle.getColumnModel().getColumn(0).setPreferredWidth(110);
+		tabelle.getColumnModel().getColumn(1).setPreferredWidth(110);
+		
+		DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+		rightRenderer.setHorizontalAlignment(DefaultTableCellRenderer.RIGHT);
+		tabelle.getColumn("Beitrag").setCellRenderer(rightRenderer);
+		
+		tabelle.getTableHeader().setBackground(new Color(47,85,178));
+		tabelle.getTableHeader().setForeground(new Color(255,255,255));
+		tabelle.getTableHeader().setFont(new Font("Arial", Font.PLAIN, 18));
+		tabelle.getTableHeader().setOpaque(false);
+		
+		JPanel rechteSeite = new JPanel();
+		rechteSeite.add(tabelle);
+		
+		fenster.add(linkeSeite, BorderLayout.WEST);
+		fenster.add(rechteSeite, BorderLayout.EAST);
 		
 		fenster.setIconImage(bild.getImage());
 		fenster.setTitle("Mitgliederverwaltung");
