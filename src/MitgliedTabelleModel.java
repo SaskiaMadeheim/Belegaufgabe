@@ -22,7 +22,7 @@ public class MitgliedTabelleModel implements TableModel {
 	}
 	
 	public int getColumnCount() {
-		return 7;
+		return 4;
 	}
 	
 	public int getRowCount() {
@@ -33,11 +33,8 @@ public class MitgliedTabelleModel implements TableModel {
 		switch( column ){
 			case 0: return "Vorname";
 			case 1: return "Nachname";
-			case 2: return "Adresse";
-			case 3: return "Email";
-			case 4: return "Geburtsjahr";
-			case 5: return "Abteilung";
-			case 6: return "Beitrag";
+			case 2: return "Abteilung";
+			case 3: return "Beitrag";
 			default: return null;
 		}
 	}
@@ -48,11 +45,8 @@ public class MitgliedTabelleModel implements TableModel {
 		switch( columnIndex ){
 			case 0: return mitglied.getName()[0];
 			case 1: return mitglied.getName()[1];
-			case 2: return mitglied.getAdresse();
-			case 3: return mitglied.getEmail();
-			case 4: return mitglied.getGeburtsjahr();
-			case 5: return mitglied.getAbteilung().name();
-			case 6: return String.format("%.2f", mitglied.getBeitrag());
+			case 2: return mitglied.getAbteilung().name();
+			case 3: return String.format("%.2f", mitglied.getBeitrag());
 			default: return null;
 		}
 	}
@@ -62,10 +56,7 @@ public class MitgliedTabelleModel implements TableModel {
 			case 0: return String.class;
 			case 1: return String.class;
 			case 2: return String.class;
-			case 3: return String.class; 
-			case 4: return Integer.class;
-			case 5: return String.class;
-			case 6: return String.class;
+			case 3: return String.class;
 			default: return null;
 		}	
 	}

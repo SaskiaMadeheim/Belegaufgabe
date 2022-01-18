@@ -56,7 +56,12 @@ public class LaunchPage extends JFrame{
 				if (e.getSource() == mitgliederverwaltung)
 				{
 					fenster.dispose();
-					MitgliederPage mp = new MitgliederPage();
+					try {
+						MitgliederPage mp = new MitgliederPage();
+					} catch (FileNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 			
 				}
 				

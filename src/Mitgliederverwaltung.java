@@ -51,7 +51,7 @@ public class Mitgliederverwaltung
 		PrintWriter pW = new PrintWriter(dateiname);
 		for(Mitglied m : mitglieder)
 		{
-			pW.print(m.getName()[0] + "; " + m.getName()[1] + "; " + m.adresse + "; " + m.email + "; " + m.geburtsjahr + "; "+ m.abteilung + "; " + m.getClass().getSimpleName());
+			pW.print(m.getName()[0] + ";" + m.getName()[1] + ";" + m.adresse + ";" + m.email + ";" + m.geburtsjahr + ";"+ m.abteilung + ";" + m.getClass().getSimpleName());
 			pW.print("\n");
 		}
 		
@@ -60,7 +60,7 @@ public class Mitgliederverwaltung
 	
 	public static ArrayList<Mitglied> leseCSV(String dateiname) throws FileNotFoundException
 	{
-		final String trennzeichen = ";|(\\r?\\n)";
+		//final String trennzeichen = ";|(\\r?\\n)";
 		File datei = new File(dateiname);
 		Scanner eingabe = new Scanner(datei);
 		ArrayList<Mitglied> liste = new ArrayList<Mitglied>();

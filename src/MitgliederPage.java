@@ -7,6 +7,9 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -21,6 +24,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
@@ -28,7 +32,15 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 @SuppressWarnings("serial")
 public class MitgliederPage extends JFrame{
-	public MitgliederPage() {
+	public MitgliederPage() throws FileNotFoundException {
+		
+		ArrayList<Mitglied> mitgliederliste = Mitgliederverwaltung.leseCSV("Mitgliederliste.txt");
+		final MitgliedTabelleModel model = new MitgliedTabelleModel();
+		
+		for(Mitglied m : mitgliederliste)
+		{
+			model.hinzufMitglied(m);
+		}
 		
 		ImageIcon bild = new ImageIcon("logo.png");
 		Border buttonBoder = BorderFactory.createLineBorder(new Color(47,85,178), 3);
@@ -201,18 +213,31 @@ public class MitgliederPage extends JFrame{
 							if(artWahl.equals("Erwachsener"))
 							{
 								Erwachsener erw = new Erwachsener(name, adresse, email, geburtsjahr, abteilung);
+								mitgliederliste.add(erw);
+								model.hinzufMitglied(erw);
 							}
 							
 							if(artWahl.equals("Kind"))
 							{
 								Kind kind = new Kind(name, adresse, email, geburtsjahr, abteilung);
+								mitgliederliste.add(kind);
+								model.hinzufMitglied(kind);
 							}
 							
 							if(artWahl.equals("Student"))
 							{
 								Student stud = new Student(name, adresse, email, geburtsjahr, abteilung);
+								mitgliederliste.add(stud);
+								model.hinzufMitglied(stud);
 							}
 							
+							try {
+								Mitgliederverwaltung.schreibeCSV("Mitgliederliste.txt", mitgliederliste);
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+						
 							addFenster.dispose();
 							
 						}
@@ -240,16 +265,9 @@ public class MitgliederPage extends JFrame{
 		linksUnten.add(neuesMitglied);
 		
 		JPanel linkeSeite = new JPanel();
-		linkeSeite.add(linksOben);
-		linkeSeite.add(linksUnten);
-		
-		
-		ArrayList<Mitglied> mitglieder = new ArrayList<Mitglied>();
-		final MitgliedTabelleModel model = new MitgliedTabelleModel();
-		for(Mitglied m : mitglieder)
-		{
-			model.hinzufMitglied(m);
-		}
+		linkeSeite.setLayout(new BorderLayout());
+		linkeSeite.add(linksOben, BorderLayout.NORTH);
+		linkeSeite.add(linksUnten, BorderLayout.CENTER);
 		
 		JTable tabelle = new JTable(model);
 		tabelle.setBackground(new Color(255,255,255));
@@ -264,8 +282,11 @@ public class MitgliederPage extends JFrame{
 		tabelle.setIntercellSpacing(new Dimension(7,0));
 		tabelle.setFocusable(false);
 		
-		tabelle.getColumnModel().getColumn(0).setPreferredWidth(110);
-		tabelle.getColumnModel().getColumn(1).setPreferredWidth(110);
+		tabelle.getColumnModel().getColumn(0).setPreferredWidth(50);
+		tabelle.getColumnModel().getColumn(1).setPreferredWidth(80);
+		tabelle.getColumnModel().getColumn(2).setPreferredWidth(90);
+		tabelle.getColumnModel().getColumn(3).setPreferredWidth(40);
+
 		
 		DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
 		rightRenderer.setHorizontalAlignment(DefaultTableCellRenderer.RIGHT);
@@ -276,8 +297,102 @@ public class MitgliederPage extends JFrame{
 		tabelle.getTableHeader().setFont(new Font("Arial", Font.PLAIN, 18));
 		tabelle.getTableHeader().setOpaque(false);
 		
+		tabelle.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				if(e.getClickCount() == 2) {
+					JTable target = (JTable)e.getSource();
+					int row = target.getSelectedRow();
+					
+					System.out.print("test");
+					
+					JFrame frame = new JFrame();
+					frame.setTitle("Mitglied");
+					frame.setIconImage(bild.getImage());
+					frame.setDefaultCloseOperation(HIDE_ON_CLOSE);
+					
+					JLabel name = new JLabel("Name: ");
+					name.setForeground(new Color(47,85,178));
+					name.setFont(new Font("Arial", Font.PLAIN, 18));
+					
+					JLabel nameDis = new JLabel(mitgliederliste.get(row).getName()[0] + " " + mitgliederliste.get(row).getName()[1]); 
+					nameDis.setForeground(new Color(47,85,178));
+					nameDis.setFont(new Font("Arial", Font.PLAIN, 18));
+					
+					JLabel adresse = new JLabel("Adresse: ");
+					adresse.setForeground(new Color(47,85,178));
+					adresse.setFont(new Font("Arial", Font.PLAIN, 18));
+					
+					JLabel adresseDis = new JLabel(mitgliederliste.get(row).getAdresse());
+					adresseDis.setForeground(new Color(47,85,178));
+					adresseDis.setFont(new Font("Arial", Font.PLAIN, 18));
+					
+					JLabel email = new JLabel("Email: ");
+					email.setForeground(new Color(47,85,178));
+					email.setFont(new Font("Arial", Font.PLAIN, 18));
+					
+					JLabel emailDis = new JLabel(mitgliederliste.get(row).getEmail());
+					emailDis.setForeground(new Color(47,85,178));
+					emailDis.setFont(new Font("Arial", Font.PLAIN, 18));
+					
+					JLabel geburtsjahr = new JLabel("Geburtsjahr: ");
+					geburtsjahr.setForeground(new Color(47,85,178));
+					geburtsjahr.setFont(new Font("Arial", Font.PLAIN, 18));
+					
+					JLabel geburtsjahrDis = new JLabel("" + mitgliederliste.get(row).getGeburtsjahr());
+					geburtsjahrDis.setForeground(new Color(47,85,178));
+					geburtsjahrDis.setFont(new Font("Arial", Font.PLAIN, 18));
+					
+					JLabel abteilung = new JLabel("Abteilung: ");
+					abteilung.setForeground(new Color(47,85,178));
+					abteilung.setFont(new Font("Arial", Font.PLAIN, 18));
+					
+					JLabel abteilungDis = new JLabel(mitgliederliste.get(row).getAbteilung().name());
+					abteilungDis.setForeground(new Color(47,85,178));
+					abteilungDis.setFont(new Font("Arial", Font.PLAIN, 18));
+					
+					JLabel beitrag = new JLabel("Beitrag: ");
+					beitrag.setForeground(new Color(47,85,178));
+					beitrag.setFont(new Font("Arial", Font.PLAIN, 18));
+					
+					JLabel beitragDis = new JLabel("" + mitgliederliste.get(row).getBeitrag());
+					beitragDis.setForeground(new Color(47,85,178));
+					beitragDis.setFont(new Font("Arial", Font.PLAIN, 18));
+					
+					JPanel pan = new JPanel();
+					pan.setForeground(Color.WHITE);
+					pan.setBackground(Color.WHITE);
+					pan.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.WHITE));
+					pan.setLayout(new GridLayout(6,2));
+					
+					pan.add(name);
+					pan.add(nameDis);
+					pan.add(adresse);
+					pan.add(adresseDis);
+					pan.add(email);
+					pan.add(emailDis);
+					pan.add(geburtsjahr);
+					pan.add(geburtsjahrDis);
+					pan.add(abteilung);
+					pan.add(abteilungDis);
+					pan.add(beitrag);
+					pan.add(beitragDis);
+					
+					frame.add(pan);
+					frame.setForeground(Color.WHITE);
+					frame.pack();
+					frame.setVisible(true);
+				}
+			}
+		});
+		
+		JScrollPane pane = new JScrollPane(tabelle);
+		pane.setPreferredSize(new Dimension(600,660));
+		pane.setBorder(BorderFactory.createMatteBorder(0, 2, 2, 2, new Color(47,85,178)));
+		
+		
 		JPanel rechteSeite = new JPanel();
-		rechteSeite.add(tabelle);
+		rechteSeite.add(pane);
+		rechteSeite.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 		
 		fenster.add(linkeSeite, BorderLayout.WEST);
 		fenster.add(rechteSeite, BorderLayout.EAST);
