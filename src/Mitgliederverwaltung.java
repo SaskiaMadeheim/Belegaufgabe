@@ -1,6 +1,5 @@
 import java.io.*;
 import java.util.*;
-import java.util.regex.Pattern;
 
 public class Mitgliederverwaltung 
 {
@@ -22,7 +21,7 @@ public class Mitgliederverwaltung
 		System.out.println(Mitgliederinfo(mitglieder));*/
 		
 		schreibeCSV("Mitgliederliste.txt", mitglieder);
-		String[][] mitgliederliste = leseCSV("Mitgliederliste", 4, 6);
+		ArrayList<Mitglied> mitgliederliste = leseCSV("Mitgliederliste.txt");
 		
 	}
 	
@@ -52,19 +51,86 @@ public class Mitgliederverwaltung
 		PrintWriter pW = new PrintWriter(dateiname);
 		for(Mitglied m : mitglieder)
 		{
-			pW.print(m.getName()[0] + "; " + m.getName()[1] + "; " + m.adresse + "; " + m.email + "; " + m.abteilung + "; " + m.getClass().getSimpleName());
+			pW.print(m.getName()[0] + "; " + m.getName()[1] + "; " + m.adresse + "; " + m.email + "; " + m.geburtsjahr + "; "+ m.abteilung + "; " + m.getClass().getSimpleName());
 			pW.print("\n");
 		}
 		
 		pW.close();
 	}
 	
-	public static String[][] leseCSV(String dateiname, int zeilen, int spalten) throws FileNotFoundException
+	public static ArrayList<Mitglied> leseCSV(String dateiname) throws FileNotFoundException
 	{
 		final String trennzeichen = ";|(\\r?\\n)";
 		File datei = new File(dateiname);
 		Scanner eingabe = new Scanner(datei);
-		eingabe.useDelimiter(Pattern.compile(trennzeichen));
+		ArrayList<Mitglied> liste = new ArrayList<Mitglied>();
+		
+		while(eingabe.hasNext())
+		{
+			String zeile = eingabe.nextLine();
+			String s[] = zeile.split(";");
+			
+			String[] name = new String[2];
+			String adresse = "";
+			String email = "";
+			int geburtsjahr = 0;
+			Abteilung abteilung = Abteilung.HANDBALL;
+			
+			
+			if(!s[0].equals(" ") && !s[1].equals(" "))
+			{
+				name[0] = s[0];
+				name[1] = s[1];
+			}
+			
+			if(!s[2].equals(" "))
+			{
+				adresse = s[2];
+			}
+			
+			if(!s[3].equals(" "))
+			{
+				email = s[3];
+			}
+			
+			if(!s[4].equals(" "))
+			{
+				geburtsjahr = Integer.parseInt(s[4]);
+			}
+			
+			if(!s[5].equals(" "))
+			{
+				if(s[5].equals("HANDBALL"))
+					abteilung = Abteilung.HANDBALL;
+				if(s[5].equals("FUSSBALL"))
+					abteilung = Abteilung.FUSSBALL;
+				if(s[5].equals("BASKETBALL"))
+					abteilung = Abteilung.BASKETBALL;			
+			}
+			
+			if(!s[6].equals(" "))
+			{
+				if(s[6].equals("Erwachsener"))
+				{
+					Erwachsener e= new Erwachsener(name, adresse, email, geburtsjahr, abteilung);
+					liste.add(e);
+				}
+				
+				if(s[6].equals("Kind"))
+				{
+					Kind k = new Kind(name, adresse, email, geburtsjahr, abteilung);
+					liste.add(k);
+				}
+				
+				if(s[6].equals("Student"))
+				{
+					Student stu = new Student(name, adresse, email, geburtsjahr, abteilung);
+					liste.add(stu);
+				}
+			}	
+		}
+		
+		/*eingabe.useDelimiter(Pattern.compile(trennzeichen));
 		String[][] mitgliederliste = new String[zeilen][spalten];
 		while(eingabe.hasNext())
 		{
@@ -81,7 +147,9 @@ public class Mitgliederverwaltung
 			}
 		}
 		eingabe.close();
-		return mitgliederliste;
+		return mitgliederliste;*/
+		
+		return liste;
 	}
        
 }

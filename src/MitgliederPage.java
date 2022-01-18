@@ -214,24 +214,8 @@ public class MitgliederPage extends JFrame{
 							}
 							
 							addFenster.dispose();
+							
 						}
-						/*{
-							Finanzbewegung bewegung = new Finanzbewegung();
-							bewegung.setName(nameIn.getText());
-							bewegung.setDatum(datumIn.getText());
-							bewegung.setAbteilung(abteilungIn.getText());
-							bewegung.setBetrag(Double.parseDouble(betragIn.getText()));
-							
-							model.hinzufFinanzbewegung(bewegung);
-							
-							//bewegung.gebeInfos();
-							try {
-								finanzdaten.newFinanzBewegung(bewegung);
-							} catch (FileNotFoundException e1) {
-								e1.printStackTrace();
-							}
-							addFenster.dispose();
-						}*/
 						
 					}
 				});
