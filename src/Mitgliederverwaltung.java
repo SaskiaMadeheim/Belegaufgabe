@@ -1,27 +1,28 @@
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.io.*;
+import java.util.*;
+import java.util.regex.Pattern;
 
 public class Mitgliederverwaltung 
 {
 	public static void main(String[] args) throws IOException
 	{
 		ArrayList<Mitglied> mitglieder = new ArrayList<>();
-		Erwachsener m1 = new Erwachsener(new String[] {"Max", "Mustermann"}, "Teststra�e 1, 78532 Tuttlingen", "max.mustermann@hs-furtwangen.de", 1990, Abteilung.BASKETBALL);
-		Erwachsener m2 = new Erwachsener(new String[] {"Martina", "Mustermann"}, "Teststra�e 3, 78532 Tuttlingen", "martina.mustermann@hs-furtwangen.de", 1987, Abteilung.HANDBALL);
-		Kind k1 = new Kind(new String[] {"Matilda", "Mustermann"}, "Teststra�e 1, 78532 Tuttlingen", "matilda.musterman@hs-furtwangen.de", 2012, Abteilung.HANDBALL);
-		Student s1 = new Student(new String[] {"Mario", "Mustermann"}, "Teststra�e 2, 78532 Tuttlingen", "mario.mustermann@hs-furtwangen.de", 2000, Abteilung.FUSSBALL);
+		Erwachsener m1 = new Erwachsener(new String[] {"Max", "Mustermann"}, "Teststrasse 1, 78532 Tuttlingen", "max.mustermann@hs-furtwangen.de", 1990, Abteilung.BASKETBALL);
+		Erwachsener m2 = new Erwachsener(new String[] {"Martina", "Mustermann"}, "Teststrasse 3, 78532 Tuttlingen", "martina.mustermann@hs-furtwangen.de", 1987, Abteilung.HANDBALL);
+		Kind k1 = new Kind(new String[] {"Matilda", "Mustermann"}, "Teststrasse 1, 78532 Tuttlingen", "matilda.musterman@hs-furtwangen.de", 2012, Abteilung.HANDBALL);
+		Student s1 = new Student(new String[] {"Mario", "Mustermann"}, "Teststrasse 2, 78532 Tuttlingen", "mario.mustermann@hs-furtwangen.de", 2000, Abteilung.FUSSBALL);
 		
 		mitglieder.add(m1);
 		mitglieder.add(m2);
 		mitglieder.add(k1);
 		mitglieder.add(s1);
 				
-		/*System.out.println(SummeBeitr�ge(mitglieder));
+		/*System.out.println(SummeBeitraege(mitglieder));
 		System.out.println(AnzahlMitglieder(mitglieder));
 		System.out.println(Mitgliederinfo(mitglieder));*/
 		
-		schreibeCSV("Mitgliederliste", mitglieder);
+		schreibeCSV("Mitgliederliste.txt", mitglieder);
+		String[][] mitgliederliste = leseCSV("Mitgliederliste", 4, 6);
 		
 	}
 	
@@ -56,6 +57,31 @@ public class Mitgliederverwaltung
 		}
 		
 		pW.close();
+	}
+	
+	public static String[][] leseCSV(String dateiname, int zeilen, int spalten) throws FileNotFoundException
+	{
+		final String trennzeichen = ";|(\\r?\\n)";
+		File datei = new File(dateiname);
+		Scanner eingabe = new Scanner(datei);
+		eingabe.useDelimiter(Pattern.compile(trennzeichen));
+		String[][] mitgliederliste = new String[zeilen][spalten];
+		while(eingabe.hasNext())
+		{
+			for(int i = 0; i < mitgliederliste.length; i++)
+			{
+				for(int j = 0; j < mitgliederliste[0].length; j++)
+				{
+					if(eingabe.hasNext())
+					{
+						String ergebnis = eingabe.next();
+						mitgliederliste[i][j] = ergebnis;
+					}
+				}
+			}
+		}
+		eingabe.close();
+		return mitgliederliste;
 	}
        
 }
