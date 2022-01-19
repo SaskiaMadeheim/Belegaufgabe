@@ -47,7 +47,7 @@ public class MitgliederPage extends JFrame{
 			model.hinzufMitglied(m);
 		}
 		
-		ImageIcon bild = new ImageIcon("logo1.png");
+		ImageIcon bild = new ImageIcon("logo.png");
 		Border buttonBoder = BorderFactory.createLineBorder(new Color(47,85,178), 3);
 		
 		JFrame fenster = new JFrame();
@@ -55,7 +55,7 @@ public class MitgliederPage extends JFrame{
 		
 		BufferedImage img = null;
 		try {
-			img = ImageIO.read(new File("logo1.png"));
+			img = ImageIO.read(new File("logo.png"));
 		}
 		catch (IOException e) {
 			e.printStackTrace();
@@ -81,7 +81,12 @@ public class MitgliederPage extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				fenster.dispose();
-				LaunchPage lp = new LaunchPage();
+				try {
+					LaunchPage lp = new LaunchPage();
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		
@@ -266,10 +271,61 @@ public class MitgliederPage extends JFrame{
 			}
 		});
 		
+		JButton entferneMitglied = new JButton("entferne Mitglied");
+		entferneMitglied.setFocusable(false);
+		entferneMitglied.setPreferredSize(new Dimension(250,50));;
+		entferneMitglied.setBackground(new Color(255,255,255));
+		entferneMitglied.setBorder(buttonBoder);
+		entferneMitglied.setForeground(new Color(47,85,178));
+		entferneMitglied.setFont(new Font("Arial", Font.PLAIN, 20));
+		
+		JLabel stats = new JLabel("Statistiken");
+		stats.setFont(new Font("Arial", Font.BOLD, 24));
+		stats.setForeground(new Color(47,85,178));
+		stats.setHorizontalAlignment(JLabel.CENTER);
+		stats.setVerticalAlignment(JLabel.CENTER);
+		
+		JLabel gesamt = new JLabel("Mitgliederzahl: ");
+		gesamt.setFont(new Font("Arial", Font.PLAIN, 20));
+		gesamt.setForeground(new Color(47,85,178));
+		
+		JLabel gesamtZahl = new JLabel("" + mitgliederliste.size());
+		gesamtZahl.setFont(new Font("Arial", Font.PLAIN, 20));
+		gesamtZahl.setForeground(new Color(47,85,178));
+		
+		JLabel einnahmen = new JLabel("Mitgliedsbeitrag: ");
+		einnahmen.setFont(new Font("Arial", Font.PLAIN, 20));
+		einnahmen.setForeground(new Color(47,85,178));
+		
+		JLabel einnahmenZahl = new JLabel(String.format("%.2f", Mitgliederverwaltung.SummeBeitraege(mitgliederliste)));
+		einnahmenZahl.setFont(new Font("Arial", Font.PLAIN, 20));
+		einnahmenZahl.setForeground(new Color(47,85,178));
+		
+		JPanel statPanel = new JPanel();
+		statPanel.setBackground(Color.WHITE);
+		statPanel.setLayout(new GridLayout(2, 2));
+		statPanel.add(gesamt);
+		statPanel.add(gesamtZahl);
+		statPanel.add(einnahmen);
+		statPanel.add(einnahmenZahl);
+		statPanel.setBorder(BorderFactory.createMatteBorder(5, 50, 50, 5, Color.WHITE));
+		
+		JPanel statistik = new JPanel();
+		statistik.setBackground(Color.WHITE);
+		statistik.setLayout(new BorderLayout());
+		statistik.add(stats, BorderLayout.NORTH);
+		statistik.add(statPanel, BorderLayout.CENTER);
+		statistik.setBorder(BorderFactory.createMatteBorder(30, 0, 0, 30, Color.WHITE));
+				
 		JPanel linksUnten = new JPanel();
+		linksUnten.setBackground(Color.WHITE);
+		linksUnten.add(statistik);
 		linksUnten.add(neuesMitglied);
+		linksUnten.add(entferneMitglied);
 		
 		JPanel linkeSeite = new JPanel();
+		linkeSeite.setBackground(Color.WHITE);
+		linkeSeite.setPreferredSize(new Dimension(600,720));
 		linkeSeite.setLayout(new BorderLayout());
 		linkeSeite.add(linksOben, BorderLayout.NORTH);
 		linkeSeite.add(linksUnten, BorderLayout.CENTER);
@@ -398,9 +454,10 @@ public class MitgliederPage extends JFrame{
 		JPanel rechteSeite = new JPanel();
 		rechteSeite.add(pane);
 		rechteSeite.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+		rechteSeite.setBackground(Color.WHITE);
 		
 		fenster.add(linkeSeite, BorderLayout.WEST);
-		fenster.add(rechteSeite, BorderLayout.EAST);
+		fenster.add(rechteSeite, BorderLayout.CENTER);
 		
 		fenster.setIconImage(bild.getImage());
 		fenster.setTitle("Mitgliederverwaltung");

@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -39,12 +40,12 @@ public class KalenderPage extends JFrame{
 		JFrame fenster = new JFrame();
 		fenster.setLayout(new GridLayout());
 		
-		ImageIcon bild = new ImageIcon("logo1.png");
+		ImageIcon bild = new ImageIcon("logo.png");
 		Border buttonBoder = BorderFactory.createLineBorder(new Color(47,85,178), 3);
 		
 		BufferedImage img = null;
 		try {
-			img = ImageIO.read(new File("logo1.png"));
+			img = ImageIO.read(new File("logo.png"));
 		}
 		catch (IOException e) {
 			e.printStackTrace();
@@ -70,7 +71,12 @@ public class KalenderPage extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				fenster.dispose();
-				LaunchPage lp = new LaunchPage();
+				try {
+					LaunchPage lp = new LaunchPage();
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		

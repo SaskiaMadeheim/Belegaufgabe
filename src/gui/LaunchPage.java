@@ -11,6 +11,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -20,9 +22,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-import finanzen.FinanzPage;
-import kalender.KalenderPage;
-import mitglieder.MitgliederPage;
+import finanzen.*;
+import kalender.*;
+import mitglieder.*;
 
 public class LaunchPage extends JFrame{
 	
@@ -32,12 +34,12 @@ public class LaunchPage extends JFrame{
 	private JButton kalender;
 	private JButton finanzen;
 	
-	public LaunchPage()
+	public LaunchPage() throws FileNotFoundException
 	{
-		ImageIcon bild = new ImageIcon("logo1.png");
+		ImageIcon bild = new ImageIcon("logo.png");
 		BufferedImage img = null;
 		try {
-			img = ImageIO.read(new File("logo1.png"));
+			img = ImageIO.read(new File("logo.png"));
 		}
 		catch (IOException e) {
 			e.printStackTrace();
@@ -135,7 +137,7 @@ public class LaunchPage extends JFrame{
 		
 		//rechtes Label1
 		JLabel rLabel1 = new JLabel();
-		rLabel1.setText("\u00dberblick");
+		rLabel1.setText("\u00dcberblick");
 		rLabel1.setForeground(new Color(255, 255, 255));
 		rLabel1.setFont(new Font("Arial", Font.BOLD, 25));
 		rLabel1.setBounds(60, 10, 200, 100);
@@ -143,8 +145,9 @@ public class LaunchPage extends JFrame{
 		rLabel1.setVerticalAlignment(JLabel.CENTER);
 		
 		//rechtes Label2
+		ArrayList<Mitglied> mitgliederliste = Mitgliederverwaltung.leseCSV("Mitgliederliste.txt");
 		JLabel rLabel2 = new JLabel();
-		rLabel2.setText("Mitgliederzahl: 255");
+		rLabel2.setText("Mitgliederzahl: " + mitgliederliste.size());
 		rLabel2.setForeground(new Color(255, 255, 255));
 		rLabel2.setFont(new Font("Arial", Font.PLAIN, 20));
 		rLabel2.setBounds(60, 80, 200, 100);
@@ -152,22 +155,26 @@ public class LaunchPage extends JFrame{
 		rLabel2.setVerticalAlignment(JLabel.CENTER);
 		
 		//rechtes Label3
-				JLabel rLabel3 = new JLabel();
-				rLabel3.setText("Finanzen: -5.120€");
-				rLabel3.setForeground(new Color(255, 255, 255));
-				rLabel3.setFont(new Font("Arial", Font.PLAIN, 20));
-				rLabel3.setBounds(60, 150, 200, 100);
-				rLabel3.setHorizontalAlignment(JLabel.CENTER);
-				rLabel3.setVerticalAlignment(JLabel.CENTER);
+		Finanzdaten fd = new Finanzdaten("dat.csv");
+		ArrayList<Finanzbewegung> einlesen= fd.leseCSV("dat.csv");
+		fd.setKontobew(einlesen);
+		
+		JLabel rLabel3 = new JLabel();
+		rLabel3.setText("Finanzen: " + String.format("%.2f", fd.getHaben()) +"€");
+		rLabel3.setForeground(new Color(255, 255, 255));
+		rLabel3.setFont(new Font("Arial", Font.PLAIN, 20));
+		rLabel3.setBounds(60, 150, 200, 100);
+		rLabel3.setHorizontalAlignment(JLabel.CENTER);
+		rLabel3.setVerticalAlignment(JLabel.CENTER);
 				
 		//rechtes Label4
-				JLabel rLabel4 = new JLabel();
-				rLabel4.setText("Kalenderausschnitt");
-				rLabel4.setForeground(new Color(255, 255, 255));
-				rLabel4.setFont(new Font("Arial", Font.PLAIN, 20));
-				rLabel4.setBounds(60, 220, 200, 100);
-				rLabel4.setHorizontalAlignment(JLabel.CENTER);
-				rLabel4.setVerticalAlignment(JLabel.CENTER);
+		/*JLabel rLabel4 = new JLabel();
+		rLabel4.setText("Kalenderausschnitt");
+		rLabel4.setForeground(new Color(255, 255, 255));
+		rLabel4.setFont(new Font("Arial", Font.PLAIN, 20));
+		rLabel4.setBounds(60, 220, 200, 100);
+		rLabel4.setHorizontalAlignment(JLabel.CENTER);
+		rLabel4.setVerticalAlignment(JLabel.CENTER);*/
 				
 		//mittleresLabel
 		JLabel mLabel = new JLabel();
@@ -221,7 +228,7 @@ public class LaunchPage extends JFrame{
 		rechtesPanel.add(rLabel1);
 		rechtesPanel.add(rLabel2);
 		rechtesPanel.add(rLabel3);
-		rechtesPanel.add(rLabel4);
+		//rechtesPanel.add(rLabel4);
 		
 		//Fenster
 		fenster = new JFrame();

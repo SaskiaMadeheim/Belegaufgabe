@@ -44,7 +44,7 @@ public class FinanzPage extends JFrame{
 		JLabel ausgabenBetrag = new JLabel();
 		JLabel differenzBetrag = new JLabel();
 		
-		ImageIcon bild = new ImageIcon("logo1.png");
+		ImageIcon bild = new ImageIcon("logo.png");
 		Border buttonBoder = BorderFactory.createLineBorder(new Color(47,85,178), 3);
 		
 		JFrame fenster = new JFrame();
@@ -97,6 +97,7 @@ public class FinanzPage extends JFrame{
 				{
 					JFrame addFenster = new JFrame();
 					addFenster.setLayout(new BorderLayout());
+					addFenster.setDefaultCloseOperation(HIDE_ON_CLOSE);
 					
 					JLabel datum = new JLabel("Buchungsdatum: ");
 					datum.setForeground(new Color(47,85,178));
@@ -213,9 +214,101 @@ public class FinanzPage extends JFrame{
 			}
 		});
 		
+		JButton entfernen = new JButton("entferne Kontobewegung");
+		entfernen.setFocusable(false);
+		entfernen.setPreferredSize(new Dimension(250,50));;
+		entfernen.setBackground(new Color(255,255,255));
+		entfernen.setBorder(buttonBoder);
+		entfernen.setForeground(new Color(47,85,178));
+		entfernen.setFont(new Font("Arial", Font.PLAIN, 20));
+		entfernen.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == entfernen)
+				{
+					JFrame entFenster = new JFrame();
+					entFenster.setLayout(new BorderLayout());
+					
+					JLabel entDatum = new JLabel("Buchungsdatum: ");
+					entDatum.setForeground(new Color(47,85,178));
+					entDatum.setFont(new Font("Arial", Font.PLAIN, 18));
+					
+					JTextField entDatumIn = new JTextField();
+					entDatumIn.setForeground(new Color(47,85,178));
+					entDatumIn.setFont(new Font("Arial", Font.PLAIN, 16));
+					
+					JLabel entName = new JLabel("Buchungstext:");
+					entName.setForeground(new Color(47,85,178));
+					entName.setFont(new Font("Arial", Font.PLAIN, 18));
+					
+					JTextField entNameIn = new JTextField();
+					entNameIn.setForeground(new Color(47,85,178));
+					entNameIn.setFont(new Font("Arial", Font.PLAIN, 16));
+					
+					JPanel entFensterOben = new JPanel();
+					entFensterOben.setBackground(Color.WHITE);
+					entFensterOben.setLayout(new GridLayout(2,2));
+					entFensterOben.add(entDatum);
+					entFensterOben.add(entDatumIn);
+					entFensterOben.add(entName);
+					entFensterOben.add(entNameIn);
+					
+					JButton entButton = new JButton("entfernen");
+					entButton.setFocusable(false);
+					entButton.setPreferredSize(new Dimension(150,40));;
+					entButton.setBackground(new Color(255,255,255));
+					entButton.setBorder(buttonBoder);
+					entButton.setForeground(new Color(47,85,178));
+					entButton.setFont(new Font("Arial", Font.PLAIN, 20));
+					entButton.addActionListener(new ActionListener() {
+						
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							if(e.getSource() == entButton)
+							{
+								try {
+									finanzdaten.entferneFinanzBewegung(entDatumIn.getText(), entNameIn.getText());
+								} catch (FileNotFoundException e2) {
+									// TODO Auto-generated catch block
+									e2.printStackTrace();
+								}
+								
+								entFenster.dispose();
+								try {
+									FinanzPage fp = new FinanzPage();
+								} catch (FileNotFoundException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
+								fenster.dispose();
+								
+							}
+						}
+					});
+					
+					JPanel entFensterUnten = new JPanel();
+					entFensterUnten.add(entButton);
+					entFensterUnten.setBackground(Color.WHITE);
+					
+					entFenster.add(entFensterOben, BorderLayout.NORTH);
+					entFenster.add(entFensterUnten, BorderLayout.CENTER);
+					
+					entFenster.setIconImage(bild.getImage());
+					entFenster.setTitle("neue Bewegung");
+					entFenster.setDefaultCloseOperation(EXIT_ON_CLOSE);
+					entFenster.setResizable(false);
+					entFenster.pack();
+					entFenster.setVisible(true);
+					
+				}
+			}
+		});
+		
+		
 		JButton exportiereInExcel = new JButton("Exportiere Daten in Excel");
 		exportiereInExcel.setFocusable(false);
-		exportiereInExcel.setPreferredSize(new Dimension(250,50));;
+		exportiereInExcel.setPreferredSize(new Dimension(340,50));;
 		exportiereInExcel.setBackground(new Color(255,255,255));
 		exportiereInExcel.setBorder(buttonBoder);
 		exportiereInExcel.setForeground(new Color(47,85,178));
@@ -319,7 +412,7 @@ public class FinanzPage extends JFrame{
 		
 		BufferedImage img = null;
 		try {
-			img = ImageIO.read(new File("logo1.png"));
+			img = ImageIO.read(new File("logo.png"));
 		}
 		catch (IOException e) {
 			e.printStackTrace();
@@ -345,7 +438,12 @@ public class FinanzPage extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				fenster.dispose();
-				LaunchPage lp = new LaunchPage();
+				try {
+					LaunchPage lp = new LaunchPage();
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		
@@ -383,6 +481,7 @@ public class FinanzPage extends JFrame{
 		rechteSeite.add(panelDiagramm);
 		rechteSeite.add(einAus);
 		rechteSeite.add(bewegung);
+		rechteSeite.add(entfernen);
 		rechteSeite.add(exportiereInExcel);
 		rechteSeite.add(gesamtzahl);
 		
