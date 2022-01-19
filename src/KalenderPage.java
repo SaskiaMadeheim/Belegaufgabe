@@ -35,12 +35,12 @@ public class KalenderPage extends JFrame{
 		JFrame fenster = new JFrame();
 		fenster.setLayout(new GridLayout());
 		
-		ImageIcon bild = new ImageIcon("logo.png");
+		ImageIcon bild = new ImageIcon("logo1.png");
 		Border buttonBoder = BorderFactory.createLineBorder(new Color(47,85,178), 3);
 		
 		BufferedImage img = null;
 		try {
-			img = ImageIO.read(new File("logo.png"));
+			img = ImageIO.read(new File("logo1.png"));
 		}
 		catch (IOException e) {
 			e.printStackTrace();

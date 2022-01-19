@@ -42,7 +42,7 @@ public class MitgliederPage extends JFrame{
 			model.hinzufMitglied(m);
 		}
 		
-		ImageIcon bild = new ImageIcon("logo.png");
+		ImageIcon bild = new ImageIcon("logo1.png");
 		Border buttonBoder = BorderFactory.createLineBorder(new Color(47,85,178), 3);
 		
 		JFrame fenster = new JFrame();
@@ -50,7 +50,7 @@ public class MitgliederPage extends JFrame{
 		
 		BufferedImage img = null;
 		try {
-			img = ImageIO.read(new File("logo.png"));
+			img = ImageIO.read(new File("logo1.png"));
 		}
 		catch (IOException e) {
 			e.printStackTrace();

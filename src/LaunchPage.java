@@ -28,10 +28,10 @@ public class LaunchPage extends JFrame{
 	
 	public LaunchPage()
 	{
-		ImageIcon bild = new ImageIcon("logo.png");
+		ImageIcon bild = new ImageIcon("logo1.png");
 		BufferedImage img = null;
 		try {
-			img = ImageIO.read(new File("logo.png"));
+			img = ImageIO.read(new File("logo1.png"));
 		}
 		catch (IOException e) {
 			e.printStackTrace();
@@ -117,10 +117,10 @@ public class LaunchPage extends JFrame{
 		
 		//oberes Label
 		JLabel oLabel = new JLabel();
-		oLabel.setText("Turn- und Sportverein Tuttlingen");
+		oLabel.setText("MeinVerein");
 		oLabel.setIcon(logo);	
 		oLabel.setForeground(new Color(47,85,178));
-		oLabel.setFont(new Font("Arial", Font.BOLD, 65));
+		oLabel.setFont(new Font("Arial", Font.BOLD, 85));
 		oLabel.setHorizontalTextPosition(JLabel.RIGHT);
 		oLabel.setVerticalTextPosition(JLabel.CENTER);
 		oLabel.setVerticalAlignment(JLabel.CENTER);
