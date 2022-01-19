@@ -3,3 +3,4 @@ Martina;Mustermann;Teststrasse 3, 78532 Tuttlingen;martina.mustermann@hs-furtwan
 Matilda;Mustermann;Teststrasse 1, 78532 Tuttlingen;matilda.musterman@hs-furtwangen.de;2012;HANDBALL;Kind
 Mario;Mustermann;Teststrasse 2, 78532 Tuttlingen;mario.mustermann@hs-furtwangen.de;2000;FUSSBALL;Student
 Jan;Bahrle;Wilhelmstrasse 26, Tuttlingen;jan.baehrle@hs-furtwangen.de;2000;HANDBALL;Student
+Marina;Mustermann;Musterstraße 12, Tuttlingen;marina.mustermann@gmail.com;2001;FUSSBALL;Student
