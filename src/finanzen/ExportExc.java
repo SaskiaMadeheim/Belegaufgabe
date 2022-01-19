@@ -15,30 +15,19 @@ import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-public class Kassenbuch extends Finanzdaten
+public class ExportExc extends Finanzdaten
 {
 	// Instanzvariablen
 	protected Finanzdaten daten;
 	
 	
 	// Konstruktoren
-	public Kassenbuch()
+	public ExportExc()
 	{
 		daten = new Finanzdaten();
 	}
 	
-	public Kassenbuch(Finanzdaten daten)
-	{
-		this.daten = daten;
-	}
-	
-	// getter/setter
-	public Finanzdaten getDaten()
-	{
-		return daten;
-	}
-	
-	public void setDaten(Finanzdaten daten)
+	public ExportExc(Finanzdaten daten)
 	{
 		this.daten = daten;
 	}
@@ -48,6 +37,8 @@ public class Kassenbuch extends Finanzdaten
 	{
 		XSSFWorkbook workbook = new XSSFWorkbook();
 		XSSFSheet tab = workbook.createSheet("Kassenbuch");
+		
+		// -------------- Schreiben der Datei ----------------
 		// Schreiben der ersten Zeile
 		Row zeile1 = tab.createRow(0);
 		createColoredCell(workbook, zeile1, 0, "Kassenbuch von: Sportverein Tuttlingen", HorizontalAlignment.CENTER, IndexedColors.LIGHT_TURQUOISE.getIndex());
@@ -114,7 +105,7 @@ public class Kassenbuch extends Finanzdaten
 				tab.getRow(zaehlerE+7).createCell(3).setCellValue(f.getAbteilung());
 				tab.getRow(zaehlerE+7).createCell(4).setCellValue(f.getBetrag());
 			}
-			else						// Schreiben der Zeilen der Ausgaben
+			else						   // Schreiben der Zeilen der Ausgaben
 			{
 				zaehlerA++;
 				tab.getRow(zaehlerA+7).createCell(5).setCellValue(zaehlerA);
@@ -125,34 +116,34 @@ public class Kassenbuch extends Finanzdaten
 			}
 		}
 		
+		// -------------- Formatierungen ----------------
 		// Duenne Striche einfuegen
 		duenneStriche(zaehleEin(), 0, 5, workbook, tab);
 		duenneStriche(zaehleAus(), 5, 10, workbook, tab);
 		
-		// Dicke Striche einfuegen
+		// Dicke Striche einfuegen zwischen Einnahmen und Ausgaben
 		if (zaehleEin() >= zaehleAus())
 		{
-			for (int i = 8; i<(8+zaehleEin()); i++)
+			for (int i = 6; i<(8+zaehleEin()); i++)
 			{
-				CellStyle cellStyle = workbook.createCellStyle();
-				borderStyleRight(cellStyle);
+				CellStyle cellStyle = tab.getRow(i).getCell(4).getCellStyle();
+				dickeStricheRechts(cellStyle);
 				tab.getRow(i).getCell(4).setCellStyle(cellStyle);
 			}
 		}
 		else
 		{
-			for (int i = 8; i<(8+zaehleAus()); i++)
+			for (int i = 6; i<(8+zaehleAus()); i++)
 			{
-				CellStyle cellStyle = workbook.createCellStyle();
-				borderStyleLeft(cellStyle);
+				CellStyle cellStyle = tab.getRow(i).getCell(5).getCellStyle();
+				dickeStricheLinks(cellStyle);
 				tab.getRow(i).getCell(5).setCellStyle(cellStyle);
 			}
 		}
-		borderStyleLeft(zeile7.getCell(5).getCellStyle());
-		borderStyleLeft(zeile8.getCell(5).getCellStyle());
+		// Dicke Striche einfuegen zwischen Einnahmen/Ausgaben und Eigenschaften
 		for(int i = 0; i < 10; i++)
 		{
-			borderStyleBottom(zeile7.getCell(i).getCellStyle());
+			dickeStricheUnten(zeile7.getCell(i).getCellStyle());
 		}
 		
 		// Zellenbreite automatisch anpassen
@@ -163,7 +154,10 @@ public class Kassenbuch extends Finanzdaten
 		workbook.write(new FileOutputStream("Kassenbuch.xlsx"));
 		workbook.close();
 	}
-			
+	
+// -------------- Hilfsmethoden ----------------	
+	
+	// neue Zelle erstellen
 	public void createColoredCell(Workbook wb, Row row, int column, String value, HorizontalAlignment halign, short colorIdx)
 	{
 	    Cell cell = row.createCell(column);
@@ -176,22 +170,27 @@ public class Kassenbuch extends Finanzdaten
 	 	// Fuellart festlegen
 	 	cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);//Einfach ausfuellen
 	 	// Borderstyle
-	 	borderStyleAll(cellStyle);
+	 	duenneStricheAll(cellStyle);
 	 	// Zellenstil anwenden
 	 	cell.setCellStyle(cellStyle);
 	}
-			
-	public void createCell(Workbook wb, Row row, int column, String value, HorizontalAlignment halign)
-	{
-	    Cell cell = row.createCell(column);
-	    cell.setCellValue(value);
-	    CellStyle cellStyle = wb.createCellStyle();
-	    // Textausrichtung
-	    cellStyle.setAlignment(halign);
-	    cell.setCellStyle(cellStyle);
-	}
-			
-	private static void borderStyleAll(CellStyle style)
+	
+	// duenne Striche für alle Ein-/Ausgaben einfuegen
+		public void duenneStriche(int zaehler, int anfang, int ende, XSSFWorkbook wb, XSSFSheet tab)
+		{
+			for(int i = 0; i < zaehler; i++)
+			{
+				for(int j = anfang; j < ende; j++)
+				{
+					CellStyle cellStyle = wb.createCellStyle();
+					duenneStricheAll(cellStyle);
+					tab.getRow(8+i).getCell(j).setCellStyle(cellStyle);
+				}
+			}
+		}
+		
+	// duenne Striche um einzelne Zelle einfuegen (alle Seiten)
+	private static void duenneStricheAll(CellStyle style)
 	{
 		style.setBorderBottom(BorderStyle.THIN);
 		style.setBottomBorderColor(IndexedColors.BLACK.getIndex());
@@ -203,36 +202,28 @@ public class Kassenbuch extends Finanzdaten
 		style.setTopBorderColor(IndexedColors.BLACK.getIndex());
 	}
 			
-	public void borderStyleLeft(CellStyle style)
+	// dicken Strich an linker Zellgrenze einfuegen
+	public void dickeStricheLinks(CellStyle style)
 	{
-		style.setBorderBottom(BorderStyle.THIN);
-		style.setBottomBorderColor(IndexedColors.BLACK.getIndex());
-		style.setBorderRight(BorderStyle.THIN);
-		style.setRightBorderColor(IndexedColors.BLACK.getIndex());
 		style.setBorderLeft(BorderStyle.THICK);
 		style.setLeftBorderColor(IndexedColors.BLACK.getIndex());
-		style.setBorderTop(BorderStyle.THIN);
-		style.setTopBorderColor(IndexedColors.BLACK.getIndex());
 	}
 	
-	public void borderStyleRight(CellStyle style)
+	// dicken Strich an rechter Zellgrenze einfuegen
+	public void dickeStricheRechts(CellStyle style)
 	{
-		style.setBorderBottom(BorderStyle.THIN);
-		style.setBottomBorderColor(IndexedColors.BLACK.getIndex());
 		style.setBorderRight(BorderStyle.THICK);
 		style.setRightBorderColor(IndexedColors.BLACK.getIndex());
-		style.setBorderLeft(BorderStyle.THIN);
-		style.setLeftBorderColor(IndexedColors.BLACK.getIndex());
-		style.setBorderTop(BorderStyle.THIN);
-		style.setTopBorderColor(IndexedColors.BLACK.getIndex());
 	}
 	
-	public void borderStyleBottom(CellStyle style)
+	// dicken Strich an unterer Zellgrenze einfuegen
+	public void dickeStricheUnten(CellStyle style)
 	{
 		style.setBorderBottom(BorderStyle.THICK);
 		style.setBottomBorderColor(IndexedColors.BLACK.getIndex());
 	}
 	
+	// Einnahmen zaehlen
 	public int zaehleEin()
 	{
 		int zaehler = 0;
@@ -246,6 +237,7 @@ public class Kassenbuch extends Finanzdaten
 		return zaehler;
 	}
 	
+	// Ausgaben zaehlen
 	public int zaehleAus()
 	{
 		int zaehler = 0;
@@ -259,6 +251,7 @@ public class Kassenbuch extends Finanzdaten
 		return zaehler;
 	}
 	
+	// Zeilenanzahl fuer Ein-/Ausgaben berechnen
 	public int berechneZeilen()
 	{
 		int n = 0;
@@ -272,22 +265,9 @@ public class Kassenbuch extends Finanzdaten
 		}
 		return n;
 	}
-	
-	public void duenneStriche(int zaehler, int anfang, int ende, XSSFWorkbook wb, XSSFSheet tab)
-	{
-		for(int i = 0; i < zaehler; i++)
-		{
-			for(int j = anfang; j < ende; j++)
-			{
-				CellStyle cellStyle = wb.createCellStyle();
-				borderStyleAll(cellStyle);
-				tab.getRow(8+i).getCell(j).setCellStyle(cellStyle);
-			}
-		}
-	}
 
-	
-	public static void main(String args[]) throws IOException
+	// Testen
+	/*public static void main(String args[]) throws IOException
 	{
 		Finanzbewegung test1 = new Finanzbewegung("Einnahme", "2020-05-09", 500, "Schwimmen");
 		Finanzbewegung test2 = new Finanzbewegung("Ausgabe", "2020-05-10", -200, "Handball");
@@ -300,6 +280,6 @@ public class Kassenbuch extends Finanzdaten
 		Kassenbuch k = new Kassenbuch (f);
 		k.schreibeExcel();
 		
-	}
+	}*/
 	
 }

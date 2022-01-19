@@ -225,7 +225,7 @@ public class FinanzPage extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				exportiereInExcel.setText("Daten exportiert");
-				Kassenbuch dat = new Kassenbuch(finanzdaten);
+				ExportExc dat = new ExportExc(finanzdaten);
 				try {
 					dat.schreibeExcel();
 				} catch (FileNotFoundException e1) {

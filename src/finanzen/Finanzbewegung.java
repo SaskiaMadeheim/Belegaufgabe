@@ -32,11 +32,6 @@ public class Finanzbewegung
 		return name;
 	}
 	
-	public LocalDate getDatumLD()
-	{
-		return datum;
-	}
-	
 	public String getDatumSt()
 	{
 		return datum.toString();
@@ -50,31 +45,6 @@ public class Finanzbewegung
 	public String getAbteilung()
 	{
 		return abteilung;
-	}
-	
-	public void setName(String name)
-	{
-		this.name = name;
-	}
-	
-	public void setDatumLD(LocalDate datum)
-	{
-		this.datum = datum;
-	}
-	
-	public void setDatumSt(String datum)
-	{
-		this.datum = LocalDate.parse(datum);
-	}
-	
-	public void setBetrag(double betrag)
-	{
-		this.betrag = betrag;
-	}
-	
-	public void setAbteilung(String abteilung)
-	{
-		this.abteilung = abteilung;
 	}
 	
 	// Infos ausgeben

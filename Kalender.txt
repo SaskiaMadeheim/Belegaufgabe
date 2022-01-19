@@ -59,5 +59,4 @@ Di.;29;11;2022;Tuttlingen Test,false,12:00,15:00,B10;
 Di.;6;12;2022;Tuttlingen Test,false,12:00,15:00,B10;
 Di.;13;12;2022;Tuttlingen Test,false,12:00,15:00,B10;
 Di.;20;12;2022;Tuttlingen Test,false,12:00,15:00,B10;
-Mi.;21;12;2022;test,true,10:00,12:00,21.12.2022;
 Di.;27;12;2022;Tuttlingen Test,false,12:00,15:00,B10;
