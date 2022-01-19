@@ -178,7 +178,7 @@ public class Finanzdaten
 		aus.close();		
 	}
 	
-	// Infos ausgeben
+	// Infos ausgeben (nur zum Testen notwendig gewesen)
 	public void gebeInfos(ArrayList<Finanzbewegung> liste)
 	{
 		for(Finanzbewegung f: liste)

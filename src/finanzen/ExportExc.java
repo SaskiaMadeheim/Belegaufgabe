@@ -15,7 +15,7 @@ import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-public class ExportExc extends Finanzdaten
+public class ExportExc
 {
 	// Instanzvariablen
 	protected Finanzdaten daten;
@@ -269,7 +269,7 @@ public class ExportExc extends Finanzdaten
 	// Testen
 	public static void main(String args[]) throws IOException
 	{
-		/*Finanzbewegung test1 = new Finanzbewegung("Einnahme", "2020-05-09", 500, "Schwimmen");
+		Finanzbewegung test1 = new Finanzbewegung("Einnahme", "2020-05-09", 500, "Schwimmen");
 		Finanzbewegung test2 = new Finanzbewegung("Ausgabe", "2020-05-10", -200, "Handball");
 		Finanzbewegung test3 = new Finanzbewegung("Ausgabe", "2020-05-11", -100, "Volleyball");
 		ArrayList<Finanzbewegung> test = new ArrayList<Finanzbewegung>();
@@ -277,8 +277,8 @@ public class ExportExc extends Finanzdaten
 		test.add(test2);
 		test.add(test3);
 		Finanzdaten f = new Finanzdaten (0, test, "XY.csv");
-		ExportExc k = new ExportExc(f);
-		k.schreibeExcel();*/		
+		ExportExc e = new ExportExc(f);
+		e.schreibeExcel();	
 	}
 	
 }

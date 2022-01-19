@@ -47,7 +47,7 @@ public class Finanzbewegung
 		return abteilung;
 	}
 	
-	// Infos ausgeben
+	// Infos ausgeben (nur zum Testen notwendig gewesen)
 	public void gebeInfos()
 	{
 		System.out.printf("%s: Datum %s, Abteilung %s, Betrag %1.2f\n", getName(), getDatumSt(), getAbteilung(), getBetrag());
