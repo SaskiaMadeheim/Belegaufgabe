@@ -117,10 +117,10 @@ public class Finanzdaten
 			}
 			i++;
 		}
-		if (finanzBewegungEntf)
-			System.out.printf("Die Kontobewegung mit Datum %s und Name %s wurde erfolgreich entfernt.\n", datum, name);									// Meldung über erfolgreiches Entfernen
-		else 
-			System.out.printf("Keine Uebereinstimmung mit Kontobewegung mit Datum %s und Name %s gefunden; bitte Angaben ueberpruefen", datum, name);	//Fehlermeldung bei falscher Eingabed
+		//if (finanzBewegungEntf)
+		//	System.out.printf("Die Kontobewegung mit Datum %s und Name %s wurde erfolgreich entfernt.\n", datum, name);									// Meldung ï¿½ber erfolgreiches Entfernen
+		//else 
+		//	System.out.printf("Keine Uebereinstimmung mit Kontobewegung mit Datum %s und Name %s gefunden; bitte Angaben ueberpruefen", datum, name);	//Fehlermeldung bei falscher Eingabed
 		schreibeCSV();		// CSV aktualisieren
 	}
 	
