@@ -36,19 +36,19 @@ public class Finanzdaten
 	
 	public Finanzdaten(double anfangswert, ArrayList<Finanzbewegung> kontobew, String dateiname)
 	{
-		for(Finanzbewegung f: kontobew)
+		for(Finanzbewegung f: kontobew)					// alle Finanzbewegungen der Liste kontobew durchgehen
 		{
-			double betrag = f.getBetrag();
-			if (f.getBetrag() >= 0)
+			double betrag = f.getBetrag();				
+			if (f.getBetrag() >= 0)						// Einnahmen berechnen
 			{
 				einnahmen = einnahmen + betrag;
 			}
-			else
+			else										// Ausgaben berechnen
 			{
 				ausgaben = ausgaben + betrag*(-1);
 			}
 		}
-		haben = anfangswert + einnahmen - ausgaben;
+		haben = anfangswert + einnahmen - ausgaben;		// Habensbetrag berechnen
 		this.kontobew = kontobew;
 		this.dateiname = dateiname;
 	}
@@ -91,7 +91,7 @@ public class Finanzdaten
 		else
 			ausgaben = ausgaben + (-1)*f.getBetrag();	//Ausgaben aktualisieren
 		kontobew.add(f);
-		schreibeCSV();
+		schreibeCSV();									// CSV aktualisieren
 	}
 	
 	//Kontobewegung entfernen
@@ -110,15 +110,15 @@ public class Finanzdaten
 				}
 				else
 					ausgaben = ausgaben + f.getBetrag()*(-1);				// Ausgaben aktualisieren
-				kontobew.remove(0);
+				kontobew.remove(0);											// Finanzbewegung aus Liste entfernen
 			}
 			i++;
 		}
 		if (finanzBewegungEntf)
-			System.out.printf("Die Kontobewegung mit Datum %s und Name %s wurde erfolgreich entfernt.\n", datum, name);
+			System.out.printf("Die Kontobewegung mit Datum %s und Name %s wurde erfolgreich entfernt.\n", datum, name);									// Meldung über erfolgreiches Entfernen
 		else 
-			System.out.printf("Keine Uebereinstimmung mit Kontobewegung mit Datum %s und Name %s gefunden; bitte Angaben ueberpruefen", datum, name);
-		schreibeCSV();
+			System.out.printf("Keine Uebereinstimmung mit Kontobewegung mit Datum %s und Name %s gefunden; bitte Angaben ueberpruefen", datum, name);	//Fehlermeldung bei falscher Eingabed
+		schreibeCSV();		// CSV aktualisieren
 	}
 	
 	// CSV einlesen
@@ -130,12 +130,14 @@ public class Finanzdaten
 		// while-Schleife zum Lesen der Datei
 		while (ein.hasNext())
 		{
+			// Lesen der Daten und Speichern in Array
 			String zeile = ein.nextLine();
 			String s[] = zeile.split(";");
 			String datum = "0000-00-00";
 			String bezeichnung = "";
 			String abteilung = "";
 			double betrag = 0;
+			// Daten in String den Variablen zuordnen
 			if (!s[0].equals(" "))
 			{
 				datum = s[0];
@@ -152,6 +154,7 @@ public class Finanzdaten
 			{
 				betrag = Double.parseDouble(s[3].replace(",", "."));
 			}
+			// neue Finanzbewegung aus Variablen erstellen und Liste hinzufuegen
 			Finanzbewegung f = new Finanzbewegung(bezeichnung, datum, betrag, abteilung);
 			liste.add(f);
 		}
@@ -159,7 +162,7 @@ public class Finanzdaten
 		return liste;
 	}
 	
-	// CSV schreiben
+	// CSV schreiben aus Liste der Kontobewegungen
 	public void schreibeCSV() throws FileNotFoundException
 	{
 		PrintWriter aus = new PrintWriter(dateiname);
@@ -182,16 +185,6 @@ public class Finanzdaten
 		{
 			f.gebeInfos();
 		}
-	}
-	
-	// Testen
-	public static void main(String args[]) throws IOException
-	{
-		/*Finanzdaten f = new Finanzdaten("TestFinanzbewegungen.csv");
-		ArrayList<Finanzbewegung> test = f.leseCSV(f.dateiname);
-		f.gebeInfos(test);
-		f.setKontobew(test);
-		f.schreibeCSV("TestFinanzbewegungen2.csv");*/
 	}
 	
 }
