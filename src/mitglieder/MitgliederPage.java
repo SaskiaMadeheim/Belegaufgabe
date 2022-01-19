@@ -224,21 +224,18 @@ public class MitgliederPage extends JFrame{
 							{
 								Erwachsener erw = new Erwachsener(name, adresse, email, geburtsjahr, abteilung);
 								mitgliederliste.add(erw);
-								model.hinzufMitglied(erw);
 							}
 							
 							if(artWahl.equals("Kind"))
 							{
 								Kind kind = new Kind(name, adresse, email, geburtsjahr, abteilung);
 								mitgliederliste.add(kind);
-								model.hinzufMitglied(kind);
 							}
 							
 							if(artWahl.equals("Student"))
 							{
 								Student stud = new Student(name, adresse, email, geburtsjahr, abteilung);
 								mitgliederliste.add(stud);
-								model.hinzufMitglied(stud);
 							}
 							
 							try {
@@ -249,6 +246,13 @@ public class MitgliederPage extends JFrame{
 							}
 						
 							addFenster.dispose();
+							try {
+								MitgliederPage mp = new MitgliederPage();
+							} catch (FileNotFoundException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							fenster.dispose();
 							
 						}
 						
@@ -278,6 +282,92 @@ public class MitgliederPage extends JFrame{
 		entferneMitglied.setBorder(buttonBoder);
 		entferneMitglied.setForeground(new Color(47,85,178));
 		entferneMitglied.setFont(new Font("Arial", Font.PLAIN, 20));
+		entferneMitglied.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == entferneMitglied)
+				{
+					JFrame addFenster = new JFrame();
+					addFenster.setLayout(new BorderLayout());
+					addFenster.setVisible(true);
+					
+					JLabel vorname = new JLabel("Vorname:");
+					vorname.setForeground(new Color(47,85,178));
+					vorname.setFont(new Font("Arial", Font.PLAIN, 18));
+					
+					JTextField vornameIn = new JTextField();
+					vornameIn.setForeground(new Color(47,85,178));
+					vornameIn.setFont(new Font("Arial", Font.PLAIN, 16));
+					
+					JLabel nachname = new JLabel("Nachname:");
+					nachname.setForeground(new Color(47,85,178));
+					nachname.setFont(new Font("Arial", Font.PLAIN, 18));
+					
+					JTextField nachnameIn = new JTextField();
+					nachnameIn.setForeground(new Color(47,85,178));
+					nachnameIn.setFont(new Font("Arial", Font.PLAIN, 16));
+					
+					JPanel addFensterOben = new JPanel();
+					addFensterOben.setLayout(new GridLayout(2, 2));
+					addFensterOben.setBackground(Color.white);
+					Border borderOben = BorderFactory.createEmptyBorder(10, 10, 10, 10);
+					addFensterOben.setBorder(borderOben);
+					
+					addFensterOben.add(vorname);
+					addFensterOben.add(vornameIn);
+					addFensterOben.add(nachname);
+					addFensterOben.add(nachnameIn);
+					
+					JButton hinzufuegen = new JButton("entfernen");
+					hinzufuegen.setFocusable(false);
+					hinzufuegen.setPreferredSize(new Dimension(150,40));;
+					hinzufuegen.setBackground(new Color(255,255,255));
+					hinzufuegen.setBorder(buttonBoder);
+					hinzufuegen.setForeground(new Color(47,85,178));
+					hinzufuegen.setFont(new Font("Arial", Font.PLAIN, 20));
+					hinzufuegen.addActionListener(new ActionListener() {
+						
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							if (e.getSource() == hinzufuegen)
+							{
+								try {
+									Mitgliederverwaltung.entferneMitglied(vornameIn.getText(), nachnameIn.getText(), mitgliederliste);
+								} catch (IOException e2) {
+									// TODO Auto-generated catch block
+									e2.printStackTrace();
+								}
+								
+								addFenster.dispose();
+								try {
+									MitgliederPage mp = new MitgliederPage();
+								} catch (FileNotFoundException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
+								fenster.dispose();
+							}
+							
+						}
+					});
+					JPanel addFensterUnten = new JPanel();
+					addFensterUnten.setBackground(Color.white);
+					addFensterUnten.add(hinzufuegen);
+					
+					
+					addFenster.add(addFensterOben, BorderLayout.NORTH);
+					addFenster.add(addFensterUnten, BorderLayout.SOUTH);
+					
+					addFenster.setIconImage(bild.getImage());
+					addFenster.setTitle("entferne Mitglied");
+					addFenster.setDefaultCloseOperation(EXIT_ON_CLOSE);
+					addFenster.setResizable(false);
+					addFenster.pack();
+					addFenster.setVisible(true);
+				}
+			}
+		});
 		
 		JLabel stats = new JLabel("Statistiken");
 		stats.setFont(new Font("Arial", Font.BOLD, 24));

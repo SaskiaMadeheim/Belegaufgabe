@@ -2,6 +2,8 @@ package mitglieder;
 import java.io.*;
 import java.util.*;
 
+import finanzen.Finanzbewegung;
+
 public class Mitgliederverwaltung 
 {
 	public static void main(String[] args) throws IOException
@@ -153,4 +155,19 @@ public class Mitgliederverwaltung
 		return liste;
 	}
        
+	public static void entferneMitglied(String vorname, String nachname, ArrayList<Mitglied> mitglieder) throws IOException
+	{
+		int i = 0;
+		for (Mitglied m: mitglieder)
+		{
+			if(vorname.equals(m.getName()[0]) && nachname.equals(m.getName()[1]))
+			{
+				mitglieder.remove(i);
+				break;
+			}
+			i++;
+		}
+		schreibeCSV("Mitgliederliste.txt", mitglieder);
+	}
 }
+		
