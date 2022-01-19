@@ -109,8 +109,11 @@ public class Finanzdaten
 					einnahmen = einnahmen - f.getBetrag();					// Einnahmen aktualisieren
 				}
 				else
+				{
 					ausgaben = ausgaben + f.getBetrag()*(-1);				// Ausgaben aktualisieren
-				kontobew.remove(0);											// Finanzbewegung aus Liste entfernen
+				}
+				kontobew.remove(i);											// Finanzbewegung aus Liste entfernen
+				break;
 			}
 			i++;
 		}
