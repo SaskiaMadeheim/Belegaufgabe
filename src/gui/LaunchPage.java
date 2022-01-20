@@ -160,7 +160,7 @@ public class LaunchPage extends JFrame{
 		fd.setKontobew(einlesen);
 		
 		JLabel rLabel3 = new JLabel();
-		rLabel3.setText("Finanzen: " + String.format("%.2f", fd.getHaben()) +"€");
+		rLabel3.setText("Finanzen: " + String.format("%.2f", fd.getHaben()) +"\u20ac");
 		rLabel3.setForeground(new Color(255, 255, 255));
 		rLabel3.setFont(new Font("Arial", Font.PLAIN, 20));
 		rLabel3.setBounds(60, 150, 200, 100);

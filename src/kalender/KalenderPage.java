@@ -552,7 +552,7 @@ public class KalenderPage extends JFrame{
 					addFensterOben.add(datumIn);
 					
 						
-					JButton hinzufuegen = new JButton("hinzuf\u00fcgen");
+					JButton hinzufuegen = new JButton("entfernen");
 					hinzufuegen.setFocusable(false);
 					hinzufuegen.setPreferredSize(new Dimension(150,40));;
 					hinzufuegen.setBackground(new Color(255,255,255));
