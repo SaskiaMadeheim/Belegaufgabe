@@ -43,6 +43,7 @@ public class Kalender
 	}
 	
 	//------------------------Direkt fuer GUI relevante Methoden----------------------------
+	
 	public static void addEvent(String event, String raumBez, String datum, String anfang, String ende) throws IOException
 	{
 		Kalender kalender = new Kalender();
@@ -101,7 +102,8 @@ public class Kalender
 		}
 		kalender.schreibeKalender();
 	}
-	//Entfernen des angegebnene Events bei Uebereinstimmung von Event und Datum
+	
+	//Entfernen des angegebnene Events bei Uebereinstimmung von "Event" und Datum
 	public static void entferneEvent(String eventStr, String datum) throws IOException
 	{
 		Kalender kalender = new Kalender();
@@ -151,7 +153,7 @@ public class Kalender
 		kalender.schreibeKalender();
 	}
 	
-	//Entfernt alle vorkommen des Events im angegebenen Jahr
+	//Entfernt alle Vorkommen des Events im angegebenen Jahr bei Uebereinstimmung von "Event"; einmalige Veranstaltungen werden nicht entfernt
 	public static void entferneEventRegelmaessig(String eventStr, int jahresZahl) throws IOException
 	{
 		Kalender kalender = new Kalender();
@@ -186,176 +188,9 @@ public class Kalender
 			System.out.printf("Keine Uebereinstimmung mit  \"%s\" im Jahr %d gefunden; bitte Angaben ueberpruefen\n", eventStr, jahresZahl);
 		kalender.schreibeKalender();
 	}
-	//Entfernt alle regelmaessigen Events mit uebereinstimmender Bezeichnung; Veranstaltungen werden nicht entfernt
-	public static void entferneEventRegelmaessig(String eventStr, int jahresZahl, int monatNr) throws IOException
-	{
-		Kalender kalender = new Kalender();
-		kalender.leseKalender();
-		
-		//alle Events im Kalender werden durchlaufen und bei Uebereinstimmung entfernt
-		boolean eventEntfernt = false;
-		Event event = new Event();
-		
-		Jahr jahr = kalender.getKalender().get(jahresZahl-2021);	
-		Monat monat = jahr.getJahr().get(monatNr-1);
-		
-		for (Tag tag : monat.getMonat())
-		{
-			for (int i = 0; i < tag.getEvents().size(); i++)
-			{									
-					event = tag.getEvents().get(i);
-					boolean eventStrMatch = event.getEvent().equals(eventStr);
-					if (eventStrMatch && (event.isVeranstaltung() == false))
-					{
-						tag.getEvents().remove(i);
-						eventEntfernt = true;
-					}
-			}
-		}
-		
-		
-		if (eventEntfernt)
-			System.out.printf("%s von %s bis %s Uhr wurde erfolgreich f�r den Monat %s im  Jahr %d entfernt\n", eventStr, event.getAnfang(), event.getEnde(), monat.getJahresMonat(), jahresZahl);
-		
-		else 
-			System.out.printf("Keine Uebereinstimmung mit  \"%s\" im Monat %s Jahr %d gefunden; bitte Angaben ueberpruefen\n", eventStr, monat.getJahresMonat(), jahresZahl);
-		kalender.schreibeKalender();
-	}
-	public static void ausgabeMonat() throws IOException
-	{
-		Kalender kalender = new Kalender();
-		kalender.leseKalender();
-		
-		Jahr jahr = kalender.getKalender().get(jahrZaehler-2021);
-		Monat monat = jahr.getJahr().get(monatZaehler-1);
-		
-		System.out.printf("%s %d \n",monat.getJahresMonat(), jahrZaehler);
-		
-		for (Tag tag : monat.getMonat())
-		{
-			if (tag.getTagNr() < 10)
-				System.out.printf("%s 0%d ", tag.getWochenTag(), tag.getTagNr());
-			else
-				System.out.printf("%s %d ", tag.getWochenTag(), tag.getTagNr());
-			
-			for (Event event : tag.getEvents())
-			{
-				System.out.printf(event.ausgabeEvent());
-			}
-			System.out.printf("\n");
-		}
-	}
-	
-	public static void ausgabeEventliste(int jahresZahl) throws IOException
-	{
-		Kalender kalender = new Kalender();
-		kalender.leseKalender();
-		
-		//PrintWriter aus = new PrintWriter("Eventliste.txt");
-		
-		Jahr jahr = kalender.getKalender().get(jahresZahl-2021);
-	
-		System.out.printf("Termine im Jahr %d: \n", jahresZahl);
-		
-		for (Monat monat : jahr.getJahr())
-		{
-			for (Tag tag : monat.getMonat())
-			{
-				for (Event event : tag.getEvents())
-				{
-					if (event.isVeranstaltung() == true)
-						System.out.printf(" %s \n", event.ausgabeEventMitDatum());
-						
-				}
-			}
-		}
-	}
-	public static void naechsterMonat() throws IOException
-	{
-		Kalender kalender = new Kalender();
-		kalender.leseKalender();
-		
-		if (monatZaehler < 12)
-			monatZaehler++;
-		else 
-		{
-			monatZaehler = 1;
-			jahrZaehler++;
-		}
-		kalender.schreibeKalender();
-		ausgabeMonat();
-	}
-	public static void vorherigerMonat() throws IOException
-	{
-		Kalender kalender = new Kalender();
-		kalender.leseKalender();
-		
-		if (monatZaehler > 2)
-			monatZaehler--;
-		
-		else 
-		{
-			monatZaehler = 12;
-			jahrZaehler--;
-		}
-		kalender.schreibeKalender();
-		ausgabeMonat();
-	}
-	
-	public static void setAktuell() throws IOException
-	{	
-		Kalender kalender = new Kalender();
-		kalender.leseKalender();
-		
-		LocalDate currentDate = LocalDate.now();
-		int monat = currentDate.getMonthValue();
-		int jahr = currentDate.getYear();
-		monatZaehler = monat;
-		jahrZaehler = jahr;
-		
-		kalender.schreibeKalender();
-		ausgabeMonat();
-	}
-	
-	public static void setMonatJahr(int monat, int jahr) throws IOException
-	{	
-		Kalender kalender = new Kalender();
-		kalender.leseKalender();
-		
-		if ((monat > 0) && (monat < 13))
-			monatZaehler = monat;
-		if ((jahr > 2021) && (jahr < 2101))
-			jahrZaehler = jahr;
-		
-		kalender.schreibeKalender();
-		ausgabeMonat();
-	}
+
 	
 	//------------------------Methoden, die nicht direkt mit GUI zusammenhaengen
-	
-	public void schreibeKalenderAlt() throws FileNotFoundException
-	{
-		String datei = "Kalender.txt";
-		PrintWriter aus = new PrintWriter(datei);
-		aus.printf("%d\n%d\n", monatZaehler, jahrZaehler);
-		for (Jahr jahr : kalender)
-		{
-			for (Monat monat : jahr.getJahr())
-			{
-				for (Tag tag : monat.getMonat())
-				{
-					aus.printf("%d;%d;%d;%s;%s;", tag.getTagNr(), tag.getMonatNr(), tag.getJahrNr(), tag.getWochenTag(), monat.getJahresMonat());
-					for (Event event : tag.getEvents())
-					{
-						aus.printf(event.schreibeEvent());
-						
-					}
-					aus.printf("\n");
-				}
-			}
-		}
-		aus.close();
-	}
 	
 	//Schreiben der Informationen des Kalenders in die Datei Kalender.txt
 	public void schreibeKalender() throws FileNotFoundException
@@ -425,16 +260,177 @@ public class Kalender
 		Raum raum = new Raum(raumBez);
 		Event thisEvent = new Event(eventBez, raum, veranstaltung, tagNr, monatNr, jahresZahl, wochenTag, anfang, ende);
 		
-		/*
-		for (Event event1 : tag.getEvents())
-		{
-			if (LocalTime.parse(anfang,DateTimeFormatter.ISO_TIME).isBefore(event1.getAnfang()) || (LocalTime.parse(ende,DateTimeFormatter.ISO_TIME).isAfter(event1.getAnfang())))
-			{
-				System.out.printf("Terminkonflikt mit %s", event1.getEvent());
-			}
-			
-		}
-		*/
 		tag.getEvents().add(thisEvent);
 	}
+	
+	//------------------------Im finalen Projekt nicht genutzte Methoden------------------------
+	
+	//Entfernt alle regelmaessigen Events mit uebereinstimmender Bezeichnung; Veranstaltungen werden nicht entfernt	
+	public static void entferneEventRegelmaessig(String eventStr, int jahresZahl, int monatNr) throws IOException
+	{
+		Kalender kalender = new Kalender();
+		kalender.leseKalender();
+		
+		//alle Events im Kalender werden durchlaufen und bei Uebereinstimmung entfernt
+		boolean eventEntfernt = false;
+		Event event = new Event();
+		
+		Jahr jahr = kalender.getKalender().get(jahresZahl-2021);	
+		Monat monat = jahr.getJahr().get(monatNr-1);
+		
+		for (Tag tag : monat.getMonat())
+		{
+			for (int i = 0; i < tag.getEvents().size(); i++)
+			{									
+					event = tag.getEvents().get(i);
+					boolean eventStrMatch = event.getEvent().equals(eventStr);
+					if (eventStrMatch && (event.isVeranstaltung() == false))
+					{
+						tag.getEvents().remove(i);
+						eventEntfernt = true;
+					}
+			}
+		}
+		
+		
+		if (eventEntfernt)
+			System.out.printf("%s von %s bis %s Uhr wurde erfolgreich f�r den Monat %s im  Jahr %d entfernt\n", eventStr, event.getAnfang(), event.getEnde(), monat.getJahresMonat(), jahresZahl);
+		
+		else 
+			System.out.printf("Keine Uebereinstimmung mit  \"%s\" im Monat %s Jahr %d gefunden; bitte Angaben ueberpruefen\n", eventStr, monat.getJahresMonat(), jahresZahl);
+		kalender.schreibeKalender();
+	}
+	public static void ausgabeMonat() throws IOException
+	{
+		Kalender kalender = new Kalender();
+		kalender.leseKalender();
+		
+		Jahr jahr = kalender.getKalender().get(jahrZaehler-2021);
+		Monat monat = jahr.getJahr().get(monatZaehler-1);
+		
+		System.out.printf("%s %d \n",monat.getJahresMonat(), jahrZaehler);
+		
+		for (Tag tag : monat.getMonat())
+		{
+			if (tag.getTagNr() < 10)
+				System.out.printf("%s 0%d ", tag.getWochenTag(), tag.getTagNr());
+			else
+				System.out.printf("%s %d ", tag.getWochenTag(), tag.getTagNr());
+			
+			for (Event event : tag.getEvents())
+			{
+				System.out.printf(event.ausgabeEvent());
+			}
+			System.out.printf("\n");
+		}
+	}
+	
+	public static void ausgabeEventliste(int jahresZahl) throws IOException
+	{
+		Kalender kalender = new Kalender();
+		kalender.leseKalender();
+				
+		Jahr jahr = kalender.getKalender().get(jahresZahl-2021);
+	
+		System.out.printf("Termine im Jahr %d: \n", jahresZahl);
+		
+		for (Monat monat : jahr.getJahr())
+		{
+			for (Tag tag : monat.getMonat())
+			{
+				for (Event event : tag.getEvents())
+				{
+					if (event.isVeranstaltung() == true)
+						System.out.printf(" %s \n", event.ausgabeEventMitDatum());
+				}
+			}
+		}
+	}
+	
+	public static void naechsterMonat() throws IOException
+	{
+		Kalender kalender = new Kalender();
+		kalender.leseKalender();
+		
+		if (monatZaehler < 12)
+			monatZaehler++;
+		else 
+		{
+			monatZaehler = 1;
+			jahrZaehler++;
+		}
+		kalender.schreibeKalender();
+		ausgabeMonat();
+	}
+	
+	public static void vorherigerMonat() throws IOException
+	{
+		Kalender kalender = new Kalender();
+		kalender.leseKalender();
+		
+		if (monatZaehler > 2)
+			monatZaehler--;
+		
+		else 
+		{
+			monatZaehler = 12;
+			jahrZaehler--;
+		}
+		kalender.schreibeKalender();
+		ausgabeMonat();
+	}
+	
+	public static void setAktuell() throws IOException
+	{	
+		Kalender kalender = new Kalender();
+		kalender.leseKalender();
+		
+		LocalDate currentDate = LocalDate.now();
+		int monat = currentDate.getMonthValue();
+		int jahr = currentDate.getYear();
+		monatZaehler = monat;
+		jahrZaehler = jahr;
+		
+		kalender.schreibeKalender();
+		ausgabeMonat();
+	}
+	
+	public static void setMonatJahr(int monat, int jahr) throws IOException
+	{	
+		Kalender kalender = new Kalender();
+		kalender.leseKalender();
+		
+		if ((monat > 0) && (monat < 13))
+			monatZaehler = monat;
+		if ((jahr > 2021) && (jahr < 2101))
+			jahrZaehler = jahr;
+		
+		kalender.schreibeKalender();
+		ausgabeMonat();
+	}
+	
+	public void schreibeKalenderAlt() throws FileNotFoundException
+	{
+		String datei = "Kalender.txt";
+		PrintWriter aus = new PrintWriter(datei);
+		aus.printf("%d\n%d\n", monatZaehler, jahrZaehler);
+		for (Jahr jahr : kalender)
+		{
+			for (Monat monat : jahr.getJahr())
+			{
+				for (Tag tag : monat.getMonat())
+				{
+					aus.printf("%d;%d;%d;%s;%s;", tag.getTagNr(), tag.getMonatNr(), tag.getJahrNr(), tag.getWochenTag(), monat.getJahresMonat());
+					for (Event event : tag.getEvents())
+					{
+						aus.printf(event.schreibeEvent());
+						
+					}
+					aus.printf("\n");
+				}
+			}
+		}
+		aus.close();
+	}
+	
 }

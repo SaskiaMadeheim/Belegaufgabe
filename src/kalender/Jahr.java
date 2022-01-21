@@ -10,6 +10,7 @@ public class Jahr
 	private ArrayList<Monat> jahr;
 	private int jahresZahl;
 	
+	//Durch Jahreskonstruktor wird der Kalender mit Monaten und Tagen gefuellt
 	public Jahr(int jahresZahl)
 	{
 		ArrayList<Monat> jahr= new ArrayList<Monat>();
