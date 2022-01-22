@@ -18,7 +18,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class ExportExc
 {
 	// Instanzvariablen
-	protected Finanzdaten daten;
+	private Finanzdaten daten;
 	
 	
 	// Konstruktoren
@@ -267,7 +267,7 @@ public class ExportExc
 	}
 
 	// Testen
-	public static void main(String args[]) throws IOException
+	/*public static void main(String args[]) throws IOException
 	{
 		Finanzbewegung test1 = new Finanzbewegung("Einnahme", "2020-05-09", 500, "Schwimmen");
 		Finanzbewegung test2 = new Finanzbewegung("Ausgabe", "2020-05-10", -200, "Handball");
@@ -279,6 +279,6 @@ public class ExportExc
 		Finanzdaten f = new Finanzdaten (0, test, "XY.csv");
 		ExportExc e = new ExportExc(f);
 		e.schreibeExcel();	
-	}
+	}*/
 	
 }
